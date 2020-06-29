@@ -2,7 +2,7 @@
 #Install.sh
 
 
-DIR=$HOME/misc/dotfiles
+DIR=$HOME/gitfiles/dots
 
 DOTFILES=(
 	"bin"
@@ -11,15 +11,15 @@ DOTFILES=(
 	#".gitconfig"
 	".profile"
 	#".tmux.conf"
-	#".xinitrc"
+	".xinitrc"
 	#".config/cmus/cmus.theme"
 	".config/compton.conf"
-	".config/awesome/rc.lua"
-	".config/awesome/awesome-wm-widgets"
+	".config/picom.conf"
+	".config/awesome"
 	".config/picom.conf"
 	".config/ranger"
 	".config/kitty"
-	#".config/nvim"
+	".config/nvim"
 	#".local/share/fonts"
 )
 

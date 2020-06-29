@@ -1,0 +1,5 @@
+#xset r rate 400 100
+#compton
+sleep 1
+picom &
+set-wallpaper
