@@ -57,8 +57,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "autostart" ,"urxvtd", "unclutter -root" }) -- entries must be separated by commas
-
+run_once({ "~/bin/autostart","~/bin/set-wallpaper" ,"urxvtd", "unclutter -root" }) -- entries must be separated by commas 
 -- This function implements the XDG autostart specification
 --[[
 awful.spawn.with_shell(
@@ -92,8 +91,8 @@ local altkey       = "Mod1"
 local terminal     = "kitty"
 local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
-local editor       = os.getenv("EDITOR") or "vim"
-local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
+local editor       = os.getenv("EDITOR") or "nvim"
+local gui_editor   = os.getenv("GUI_EDITOR") or "emacs"
 local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "slock"
 
@@ -475,6 +474,12 @@ globalkeys = my_table.join(
         end,
         {description = "volume 0%", group = "hotkeys"}),
 
+    --Opacity Control (picom-trans)
+    awful.key({ altkey, "Shift" }, "Up", function () os.execute("picom-trans -o +5") end,
+              {description = "Opacity +1%", group = "hotkeys"}),
+    awful.key({ altkey , "Shift"}, "Down", function () os.execute("picom-trans -o -5") end,
+              {description = "opacity -1%", group = "hotkeys"}),
+    
     -- MPD control
     awful.key({ altkey, "Control" }, "Up",
         function ()

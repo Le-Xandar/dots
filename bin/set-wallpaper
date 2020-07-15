@@ -1,3 +1,3 @@
 #!/bin/bash
 sleep 1
-feh --bg-scale ~/Pictures/rust-4k.jpg
+feh --bg-fill ~/Pictures/morning-wallpaper.jpg

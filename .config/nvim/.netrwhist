@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/xero/code/node/telegram-pokemon-bot/discord/events'
+let g:netrw_dirhist_2='/home/xero/code/node/telegram-pokemon-bot/discord'
+let g:netrw_dirhist_1='/home/xero/code/node/telegram-pokemon-bot'

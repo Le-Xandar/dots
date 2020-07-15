@@ -1,9 +1,9 @@
 #xset r rate 400 100
 #compton
-sleep 1
-picom &
-set-wallpaper
+sleep 2
+picom --backend glx --vsync --dbus &
+./set-wallpaper
 
-setxkbhmap -option ctrl:swapcaps
-setxkbhmap -option altwin:swap_lalt_lwin
+setxkbmap -option ctrl:swapcaps
+setxkbmap -option altwin:swap_lalt_lwin
 
