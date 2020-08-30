@@ -1,3 +1,4 @@
 #!/bin/bash
 sleep 1
-feh --bg-fill ~/Pictures/morning-wallpaper.jpg
+#feh --bg-fill ~/Pictures/wander1.png
+feh --bg-fill $1

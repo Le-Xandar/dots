@@ -93,7 +93,7 @@ local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awe
 local cycle_prev   = true -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "emacs"
-local browser      = os.getenv("BROWSER") or "firefox"
+local browser      = os.getenv("BROWSER") or "icecat"
 local scrlocker    = "slock"
 
 awful.util.terminal = terminal

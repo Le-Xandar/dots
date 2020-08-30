@@ -1,5 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/xero/code/node/freelance/telegram-pokemon-bot/databases'
+let g:netrw_dirhist_6='/usr/bin'
+let g:netrw_dirhist_5='/usr'
+let g:netrw_dirhist_4='/'
 let g:netrw_dirhist_3='/home/xero/code/node/telegram-pokemon-bot/discord/events'
 let g:netrw_dirhist_2='/home/xero/code/node/telegram-pokemon-bot/discord'
 let g:netrw_dirhist_1='/home/xero/code/node/telegram-pokemon-bot'
