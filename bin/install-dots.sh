@@ -2,7 +2,7 @@
 #Install.sh
 
 
-DIR=$HOME/gitfiles/dots
+DIR=/home/data/dots
 
 DOTFILES=(
 	"bin"
@@ -12,8 +12,9 @@ DOTFILES=(
 	".profile"
 	#".tmux.conf"
 	".xinitrc"
+	".Xresources"
 	".zshrc"
-	".oh-my-zsh"
+	".config/.oh-my-zsh"
 	".doom.d"
 	#".config/cmus/cmus.theme"
 	".config/compton.conf"

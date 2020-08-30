@@ -51,3 +51,5 @@
 ;(unpin! t)
 (package! vue-mode)
 (package! elcord)
+(package! telega)
+(package! elpher)

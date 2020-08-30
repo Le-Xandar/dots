@@ -8,6 +8,15 @@ case $- in
       *) return;;
 esac
 
+#xdg specs
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_CACHE_HOME="$HOME"/.cache
+export XDG_DATA_HOME="$HOME"/.local/share
+
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export GOPATH="$XDG_DATA_HOME"/go
+
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth

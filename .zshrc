@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin/:$HOME/.cargo/bin:/usr/lib64:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/xero/.oh-my-zsh"
+export ZSH="$HOME/.config/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -116,3 +116,6 @@ bindkey jk vi-cmd-mode
 
 
 alias gentoo='neofetch --kitty Pictures/gentoo-logo.png'
+
+#support for gpg
+export GPG_TTY=$(tty)
