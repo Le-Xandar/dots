@@ -2,7 +2,7 @@
 #xset r rate 400 100
 #compton
 
-emacs -fs &
+##emacs -fs &
 
 setxkbmap -option ctrl:swapcaps
 setxkbmap -option altwin:swap_lalt_lwin
@@ -10,7 +10,10 @@ setxkbmap -model pc105 -layout us,ar -variant ,qwerty -option grp:shifts_toggle
 
 sleep 2
 picom --backend glx --vsync --dbus &
-set-wallpaper ~/Pictures/noon-wallpaper.jpg
-gpg-agent --server &
-#syncthing &
+#gpg-agent --server &
+syncthing --no-browser &
+feh --bg-fill ~/Pictures/monochrome.jpg
+
+#other
+qbittorrent &
 

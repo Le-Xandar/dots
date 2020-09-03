@@ -53,3 +53,6 @@
 (package! elcord)
 (package! telega)
 (package! elpher)
+
+;(package! another-package
+;  :recipe (:host github :repo "username/repo"))
