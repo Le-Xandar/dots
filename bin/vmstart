@@ -15,4 +15,4 @@
 
 
  ##boot image
- #qemu-system-x86_64 -cdrom ~/path/to/iso -drive file=/path/to/.img,format=qcow2 -m 3G -cpu host -smp 6 --enable-kvm
+ #qemu-system-x86_64 -cdrom ~/path/to/iso -drive file=/path/to/.img,format=qcow2 -m 3G -cpu host -smp 4,threads=2 --enable-kvm

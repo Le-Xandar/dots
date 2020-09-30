@@ -1,6 +1,7 @@
 source  ~/.bashrc
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin/:$HOME/.cargo/bin:/usr/lib64:$PATH
+#export PATH=$HOME/bin:$HOME/.local/bin/:/usr/lib64:$PATH
+export PATH=$HOME/.local/bin/:/usr/lib64:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.config/.oh-my-zsh"
@@ -9,7 +10,13 @@ export ZSH="$HOME/.config/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+#ZSH_THEME="bira"
+#ZSH_THEME="blinks"
+#ZSH_THEME="dogenpunk"
+#ZSH_THEME="fino"
+ZSH_THEME="fox"
+#ZSH_THEME="jonathan"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -69,7 +76,10 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+  battery
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,3 +130,36 @@ alias gentoo='neofetch --kitty Pictures/gentoo-logo.png'
 
 #support for gpg
 export GPG_TTY=$(tty)
+#echo '
+# \e[H\e[2J
+#           \e[1;36m.
+#          \e[1;36m/#\
+#         \e[1;36m/###\      \e[1;37m               #     \e[1;36m| *
+#        \e[1;36m/p^###\     \e[1;37m a##e #%" a#"e 6##%  \e[1;36m| | |-^-. |   | \ /
+#       \e[1;36m/##P^q##\    \e[1;37m.oOo# #   #    #  #  \e[1;36m| | |   | |   |  X
+#      \e[1;36m/##(   )##\   \e[1;37m%OoO# #   %#e" #  #  \e[1;36m| | |   | ^._.| / \ \e[0;37mTM
+#     \e[1;36m/###P   q#,^\
+#    \e[1;36m/P^         ^q\ \e[0;37mTM
+#'
+
+echo '
+\033[38;2;23;147;209m                   ▄
+                  ▟█▙                                  ____              _  _
+                 ▟███▙                                / ___|  _ __ ___  (_)| |  ___
+                ▟█████▙                               \___ \ | `_ ` _ \ | || | / _ \
+               ▟███████▙                               ___)| | | | | | || || ||  __/
+              ▂▔▀▜██████▙                             |____/ |_| |_| |_||_||_| \___|
+             ▟██▅▂▝▜█████▙                                     
+            ▟█████████████▙              __        __          _           __                __
+           ▟███████████████▙             \ \      / /___  ___ | |_  ___   / _|  ___  _ __   _\ \
+          ▟█████████████████▙             \ \ /\ / // _ \/ __|| __|/ _ \ | |_  / _ \| `__| (_)| |
+         ▟███████████████████▙             \ V  V /|  __/\__ \| |_| (_) ||  _||  __/| |     _ | |
+        ▟█████████▛▀▀▜████████▙             \_/\_/  \___||___/ \__|\___/ |_|   \___||_|    (_)| |
+       ▟████████▛      ▜███████▙                                                             /_/
+      ▟█████████        ████████▙ 
+     ▟██████████        █████▆▅▄▃▂ 
+    ▟██████████▛        ▜█████████▙ 
+   ▟██████▀▀▀              ▀▀██████▙ 
+  ▟███▀▘                       ▝▀███▙ 
+ ▟▛▀                               ▀▜▙ 
+'

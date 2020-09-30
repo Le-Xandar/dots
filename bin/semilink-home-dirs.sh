@@ -2,7 +2,7 @@
 #Install.sh
 
 
-DIR=/home/data/
+DIR=/home/data
 
 HOMEDIRS=(
 	"Downloads"
@@ -10,6 +10,7 @@ HOMEDIRS=(
 	"Desktop"
 	"Pictures"
 	"Videos"
+	"VMs"
 	"code"
 	"Sync"
 	".gnupg"

@@ -4,16 +4,19 @@
 
 ##emacs -fs &
 
-setxkbmap -option ctrl:swapcaps
-setxkbmap -option altwin:swap_lalt_lwin
-setxkbmap -model pc105 -layout us,ar -variant ,qwerty -option grp:shifts_toggle
+setxkbmap -option ctrl:swapcaps 
+setxkbmap -option altwin:swap_lalt_lwin 
+setxkbmap -model pc105 -layout us,ar -variant ,qwerty -option grp:shifts_toggle 
+sxhkd &
 
-sleep 2
+#sleep 2
 picom --backend glx --vsync --dbus &
 #gpg-agent --server &
 syncthing --no-browser &
-feh --bg-fill ~/Pictures/monochrome.jpg
+#feh --bg-fill ~/Pictures/monochrome.jpg
+feh --bg-fill $(cat ~/bin/config/wallpaper)
+#Pictures/wander1.png
 
 #other
-qbittorrent &
+flameshot &
 
