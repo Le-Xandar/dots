@@ -123,7 +123,7 @@
        ;;fsharp           ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       ;;(go +lsp)         ; the hipster dialect
+       (go +lsp)         ; the hipster dialect
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
@@ -132,7 +132,7 @@
        (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       ;;latex             ; writing papers in Emacs has never been so fun
+       latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
@@ -161,7 +161,8 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       (web                ; the tubes
+        +lsp)
        yaml              ; JSON, but readable
 
        :email

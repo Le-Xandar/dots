@@ -97,6 +97,9 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+alias rr='ranger'
+alias r.='. ranger'
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -125,4 +128,11 @@ fi
 #    . /etc/bash_completion
 #  fi
 #fi
-export PATH="$PATH:~/bin:~/.local/share/cargo/bin"
+export PATH="$PATH:$HOME/bin:~/.local/share/cargo/bin"
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"

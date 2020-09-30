@@ -49,10 +49,11 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
-(package! vue-mode)
+;; (package! vue-mode)
 (package! elcord)
 (package! telega)
 (package! elpher)
+(package! eglot)
 
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))

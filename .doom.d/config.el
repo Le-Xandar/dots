@@ -26,11 +26,25 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;;(setq doom-theme 'doom-one)
-(setq doom-theme 'doom-Iosvkem)
+(setq doom-theme 'doom-gruvbox)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Documents/gtd/")
+;; (setq org-capture-templates '(("t" "Todo [inbox]" entry
+;;                                (file+headline "~/Documents/gtd/inbox.org" "Tasks")
+;;                                "* TODO %i%?")
+;;                               ("T" "Tickler" entry
+;;                                (file+headline "~/Documents/gtd/tickler.org" "Tickler")
+;;                                "* %i%? \n %U")))
+
+;; (setq org-agenda-files '("~/Documents/gtd/inbox.org"
+;;                          "~/Documents/gtd/gtd.org"
+;;                          "~/Documents/gtd/tickler.org"))
+
+;; (setq org-refile-targets '(("~/Documents/gtd/gtd.org" :maxlevel . 3)
+;;                            ("~/Documents/gtd/someday.org" :level . 1)
+;;                            ("~/Documents/gtd/tickler.org" :maxlevel . 2)))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -105,18 +119,49 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; =====
+;; company
+;; =====
+(setq company-dabbrev-downcase 0)
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 1)
+
 
 ;;npm install -g vue-language-server
-(setq vue-mode-packages
-  '(vue-mode))
+;; (setq vue-mode-packages
+;;   '(vue-mode))
 
-(setq vue-mode-excluded-packages '())
+;; (setq vue-mode-excluded-packages '())
 
-(defun vue-mode/init-vue-mode ()
-  "Initialize my package"
-  (use-package vue-mode))
+;; (defun vue-mode/init-vue-mode ()
+;;   "Initialize my package"
+;;   (use-package vue-mode))
+(define-derived-mode genehack-vue-mode web-mode "ghVue"
+  "A major mode derived from web-mode, for editing .vue files with LSP support.")
+
+;;https://genehack.blog/2020/08/web-mode-eglot-vetur-vuejs-=-happy/
+(require 'eglot)
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . genehack-vue-mode))
+(add-hook 'genehack-vue-mode-hook #'eglot-ensure)
+(add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
+
+
 
 ;; =====
 ;; org mode
 ;; =====
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+;; =====
+;; Rust
+;; =====
+;; $ rustup toolchain add nightly
+;; $ rustup component add rust-src
+;; $ cargo +nightly install racer
+(add-hook 'rust-mode-hook #'racer-mode)
+
+
+;; =========
+;; Neotree
+;; =========
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))

@@ -10,10 +10,9 @@ XF86AudioRaiseVolume
 
 XF86AudioLowerVolume
   amixer -q sset 'Master' 1%-
-#==================polybar======================
+#==================Other Progs======================
 super + space
   sh .config/polybar/scripts/menu_full
-#================WM=============================
 # wm independent hotkeys
 #
 
@@ -29,16 +28,21 @@ super + r
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# emacs
+super + e
+  emacs
+
 #
 # bspwm hotkeys
 #
+#================WM=============================
 
 # quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }w
+super + {_,shift + }q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -56,7 +60,10 @@ super + g
 #
 # state/flags
 #
-
+#Sticky
+super + p
+   bspc window -t floating; \
+   bspc window -t sticky
 # set the window state
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
