@@ -41,6 +41,10 @@ Plug 'rbgrouleff/bclose.vim'
 Plug 'SirVer/ultisnips'
 Plug 'albanm/vuetify-vim'
 "}}}
+": Latex{{{
+Plug 'lervag/vimtex'
+
+"}}}
 " Markdown {{{
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -210,9 +214,16 @@ if executable('rg')
 endif
 
 " {{{ UltiSnipsExpandTrigger
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"let g:UltiSnipsExpandTrigger="<>"
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " }}}
 
 
+" Latex{{{
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+" }}}

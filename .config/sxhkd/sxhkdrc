@@ -18,7 +18,7 @@ super + space
 
 # terminal emulator
 super + Return
-	kitty
+	alacritty
 
 # program launcher
 super + r
@@ -51,26 +51,35 @@ super + m
 
 # send the newest marked node to the newest preselected node
 super + y
-	bspc node newest.marked.local -n newest.!automatic.local
+	bspc node -n newest.\!automatic.local
+
+#bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest window
 super + g
 	bspc node -s biggest.window
 
+# Window Gap
+super + ctrl + {equal, minus}
+  bspc config window_gap $(( $(bspc config window_gap) {+,-} 1 ))
+
+
 #
 # state/flags
 #
-#Sticky
-super + p
-   bspc window -t floating; \
-   bspc window -t sticky
+#Sticky , hide
+super + {p,n}
+   bspc node -g {sticky,hidden,}
+#unhide
+super + ctrl + n
+  bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
 # set the window state
 super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+	bspc node -t {tiled,pseudo_tiled,\~floating,\~fullscreen}
 
 # set the node flags
-super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
+super + ctrl + {m,x,z}
+	bspc node -g {marked,locked,private}
 
 #
 # focus/swap
