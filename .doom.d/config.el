@@ -20,7 +20,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+      doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -151,6 +151,27 @@
 ;; org mode
 ;; =====
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
+(defun update-org-latex-fragments ()
+  (org-latex-preview '(64))
+  (plist-put org-format-latex-options :scale text-scale-mode-amount)
+  (org-latex-preview '(16)))
+;; (add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-latex-preview '(64))
+            (plist-put org-format-latex-options :scale 1.3)
+            (org-latex-preview '(16))
+            ))
+
+'(org-format-latex-options
+  (quote
+   (:foreground default :background default :scale 0.5 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+    ("begin" "$1" "$" "$$" "\\(" "\\["))))
+(set-default 'preview-scale-function 0.2)
+
+
+
 
 ;; =====
 ;; Rust
@@ -165,3 +186,43 @@
 ;; Neotree
 ;; =========
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+
+;; ================
+;; LaTeX
+;; ================
+(add-hook 'LaTeX-mode-hook
+      (lambda ()
+        (TeX-fold-mode 1)
+        (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+        (add-hook 'after-change-functions
+              (lambda (start end oldlen)
+                (when (= (- end start) 1)
+                  (let ((char-point
+                                 (buffer-substring-no-properties
+                                  start end)))
+                   (when (or (string= char-point "}")
+                         (string= char-point "$"))
+                    (TeX-fold-paragraph)))))
+               t t)))
+(add-hook 'TeX-mode-hook #'TeX-fold-mode)
+
+
+
+;; ===========================
+;; Compile on save
+;; ===========================
+
+(defun compile-on-save-start ()
+  (let ((buffer (compilation-find-buffer)))
+    (unless (get-buffer-process buffer)
+      (recompile))))
+
+(define-minor-mode compile-on-save-mode
+  "Minor mode to automatically call `recompile' whenever the
+current buffer is saved. When there is ongoing compilation,
+nothing happens."
+  :lighter " CoS"
+  (if compile-on-save-mode
+      (progn  (make-local-variable 'after-save-hook)
+              (add-hook 'after-save-hook 'compile-on-save-start nil t))
+    (kill-local-variable 'after-save-hook)))

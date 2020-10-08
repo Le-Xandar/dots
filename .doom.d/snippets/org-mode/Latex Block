@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Latex Block
+# key: b
+# --
+\begin{${1:equation}}
+    `%`$0
+\end{$1}
