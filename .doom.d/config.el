@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Westofer Raymond"
+      user-mail-address "WestoferRaymond@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -19,8 +19,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-font (font-spec :family "Fira Code" :size 11 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "sans" :size 11))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -31,23 +31,6 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/gtd/")
-;; (setq org-capture-templates '(("t" "Todo [inbox]" entry
-;;                                (file+headline "~/Documents/gtd/inbox.org" "Tasks")
-;;                                "* TODO %i%?")
-;;                               ("T" "Tickler" entry
-;;                                (file+headline "~/Documents/gtd/tickler.org" "Tickler")
-;;                                "* %i%? \n %U")))
-
-;; (setq org-agenda-files '("~/Documents/gtd/inbox.org"
-;;                          "~/Documents/gtd/gtd.org"
-;;                          "~/Documents/gtd/tickler.org"))
-
-;; (setq org-refile-targets '(("~/Documents/gtd/gtd.org" :maxlevel . 3)
-;;                            ("~/Documents/gtd/someday.org" :level . 1)
-;;                            ("~/Documents/gtd/tickler.org" :maxlevel . 2)))
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
 
@@ -67,6 +50,16 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+;;
+;;==============================================
+;;             Global key binds
+;;==============================================
+(map!
+ :n "<f6>" 'elfeed
+ ;; :n "<f7>" email TODO: Add email
+ "C-h" 'backward-delete-char-untabify
+ )
 
 
 ;; Rust analyazer
@@ -155,14 +148,8 @@
   (org-latex-preview '(64))
   (plist-put org-format-latex-options :scale text-scale-mode-amount)
   (org-latex-preview '(16)))
-;; (add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
+(add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (org-latex-preview '(64))
-            (plist-put org-format-latex-options :scale 1.3)
-            (org-latex-preview '(16))
-            ))
 
 '(org-format-latex-options
   (quote
@@ -191,19 +178,19 @@
 ;; LaTeX
 ;; ================
 (add-hook 'LaTeX-mode-hook
-      (lambda ()
-        (TeX-fold-mode 1)
-        (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-        (add-hook 'after-change-functions
-              (lambda (start end oldlen)
-                (when (= (- end start) 1)
-                  (let ((char-point
+          (lambda ()
+            (TeX-fold-mode 1)
+            (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+            (add-hook 'after-change-functions
+                      (lambda (start end oldlen)
+                        (when (= (- end start) 1)
+                          (let ((char-point
                                  (buffer-substring-no-properties
                                   start end)))
-                   (when (or (string= char-point "}")
-                         (string= char-point "$"))
-                    (TeX-fold-paragraph)))))
-               t t)))
+                            (when (or (string= char-point "}")
+                                      (string= char-point "$"))
+                              (TeX-fold-paragraph)))))
+                      t t)))
 (add-hook 'TeX-mode-hook #'TeX-fold-mode)
 
 
@@ -226,3 +213,43 @@ nothing happens."
       (progn  (make-local-variable 'after-save-hook)
               (add-hook 'after-save-hook 'compile-on-save-start nil t))
     (kill-local-variable 'after-save-hook)))
+
+
+;; el-feed
+(elfeed-org)
+(setq rmh-elfeed-org-files (list "~/.doom.d/elfeed.org"))
+(require 'elfeed)
+
+(defun elfeed-v-mpv (url)
+  "Watch a video from URL in MPV"
+  (async-shell-command (format "mpv %s" url)))
+
+(defun elfeed-view-mpv (&optional use-generic-p)
+  "Youtube-feed link"
+  (interactive "P")
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+             do (elfeed-untag entry 'unread)
+             when (elfeed-entry-link entry)
+             do (elfeed-v-mpv it))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (use-region-p) (forward-line))))
+
+(define-key elfeed-search-mode-map  "v"  'elfeed-view-mpv)
+(setq-default elfeed-search-filter "@1-week-ago")
+
+;; closing elfeed forwards to homepage
+(defun elfeed-close-prev-buffer ()
+  (interactive)
+  "elfeed kill and restore prev buffer"
+  (elfeed-kill-buffer)
+   (previous-buffer))
+
+
+(map!  :map elfeed-search-mode-map
+       :n "v" 'elfeed-view-mpv
+       :n "g" 'elfeed-update
+       :n "<f6>" 'elfeed-close-prev-buffer
+       :n "b" 'elfeed-search-browse-url
+       :n "c" 'elfeed-search-clear-filter
+       )

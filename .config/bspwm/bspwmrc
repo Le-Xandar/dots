@@ -1,6 +1,6 @@
 #! /bin/sh 
 #pgrep -x sxhkd > /dev/null || sxhkd &
-sxhkd &
+pkill sxhkd && sxhkd &
 
 #Swallow
 pgrep ~/bin/bspswallow || ~/bin/bspswallow &
@@ -8,7 +8,7 @@ pgrep ~/bin/bspswallow || ~/bin/bspswallow &
 ~/bin/autostart
 ~/.config/polybar/launch.sh  &
 
-bspc monitor -d web code docs term misc mail 
+bspc monitor -d web code term misc mail 
 
 bspc config border_width          2
 bspc config window_gap            13
@@ -19,8 +19,9 @@ bspc config gapless_monocle       true
 bspc config focus_follows_pointer true
 
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on 
-bspc rule -a Chromium desktop='^2' 
+# bspc rule -a Gimp desktop='^8' state=floating follow=on 
+bspc rule -a Chromium desktop='^web' 
+bspc rule -a Thunderbird desktop='^5' 
 bspc rule -a mplayer2 state=floating 
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled

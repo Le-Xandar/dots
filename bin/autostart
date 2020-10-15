@@ -10,7 +10,7 @@ setxkbmap -model pc105 -layout us,ar -variant ,qwerty -option grp:shifts_toggle
 sxhkd &
 
 #sleep 2
-picom --backend glx --vsync --dbus &
+picom --backend glx &!
 #gpg-agent --server &
 syncthing --no-browser &
 #feh --bg-fill ~/Pictures/monochrome.jpg
@@ -19,4 +19,5 @@ feh --bg-fill $(cat ~/bin/config/wallpaper)
 
 #other
 flameshot &
-
+optimus-manager-qt &
+emacs --daemon
