@@ -26,7 +26,7 @@ super + r
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+	pkill -usr1 -x sxhkd ; notify-send 'sxhkd' 'Reloaded Config'
 
 # emacs
 super + e
@@ -39,6 +39,10 @@ super + e
 # bspwm hotkeys
 #
 #================WM=============================
+
+# Show Help
+super + slash
+	sxhkd-help
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -56,11 +60,11 @@ super + m
 super + y
 	bspc node -n newest.\!automatic.local
 
-#bspc node newest.marked.local -n newest.!automatic.local
+   #bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest window
-super + g
-	bspc node -s biggest.window
+#super + g
+	#bspc node -s biggest.window
 
 # Window Gap
 super + ctrl + {equal, minus}

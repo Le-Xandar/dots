@@ -7,7 +7,7 @@
 setxkbmap -option ctrl:swapcaps 
 setxkbmap -option altwin:swap_lalt_lwin 
 setxkbmap -model pc105 -layout us,ar -variant ,qwerty -option grp:shifts_toggle 
-sxhkd &
+dbus-launch sxhkd &
 
 #sleep 2
 picom --backend glx &!
@@ -20,4 +20,10 @@ feh --bg-fill $(cat ~/bin/config/wallpaper)
 #other
 flameshot &
 optimus-manager-qt &
-emacs --daemon
+dbus-launch emacs --daemon &
+
+#if bspwm
+if [[	ps -e | grep bspwm ]]; then
+	thunderbird &
+	keepassxc &
+fi

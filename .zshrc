@@ -119,6 +119,14 @@ function zle-keymap-select zle-line-init zle-line-finish
   esac
 }
 
+#disable url globbing (for mpv) # https://superuser.com/questions/649635/zsh-says-no-matches-found-when-trying-to-download-video-with-youtube-dl
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+
 zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select

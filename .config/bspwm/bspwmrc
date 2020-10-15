@@ -21,7 +21,9 @@ bspc config focus_follows_pointer true
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on 
 bspc rule -a Chromium desktop='^web' 
+bspc rule -a Brave desktop='^1' 
 bspc rule -a Thunderbird desktop='^5' 
+bspc rule -a KeePassXC desktop='^5' 
 bspc rule -a mplayer2 state=floating 
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
