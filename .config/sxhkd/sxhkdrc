@@ -30,7 +30,10 @@ super + Escape
 
 # emacs
 super + e
-  emacs
+  emacsclient -nc || emacs
+
+{XF86Mail,XF86HomePage}
+  {thunderbird, brave||firefox}
 
 #
 # bspwm hotkeys

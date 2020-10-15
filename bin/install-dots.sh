@@ -19,6 +19,14 @@ DOTFILES=(
 	".config/bspwm"
 	".config/polybar"
 	".config/sxhkd"
+
+	".config/zathura"
+	".config/alacritty"
+	".config/neofetch"
+	".config/i3"
+	".config/mpv"
+	".config/screenkry.json"
+
 	".doom.d"
 	#".config/cmus/cmus.theme"
 	".config/compton.conf"

@@ -1,5 +1,5 @@
 #!/bin/bash
 #feh --bg-fill ~/Pictures/wander1.png
 mkdir -p ~/bin/config &
-echo $1 > ~/bin/config/wallpaper &
-feh --bg-fill $1 &
+echo  "$@" > ~/bin/config/wallpaper &
+feh --bg-fill "$@" &

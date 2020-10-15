@@ -21,10 +21,11 @@ Plug 'scrooloose/nerdtree'		" NERD Tree
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " Completion as in vscode
 Plug 'Xuyuanp/nerdtree-git-plugin' 	" show git status in Nerd tree
 Plug 'preservim/nerdcommenter' " comments code
+Plug 'junegunn/goyo.vim' " zen mode
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
-"Plug 'sheerun/vim-polyglot' "all lang packs :)
+Plug 'sheerun/vim-polyglot' "all lang packs :)
 Plug 'qpkorr/vim-bufkill'
 "JS {{{
 Plug 'https://github.com/pangloss/vim-javascript.git'
@@ -43,6 +44,7 @@ Plug 'albanm/vuetify-vim'
 "}}}
 ": Latex{{{
 Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 "}}}
 " Markdown {{{
@@ -95,6 +97,7 @@ set undofile
 set incsearch
 set autoread
 set backspace=indent,eol,start
+set textwidth=80
 
 
 
@@ -133,6 +136,10 @@ nnoremap <leader>fp :e ~/.vimrc<CR>
 
 "Open {{{
 nnoremap <leader>oT :term<CR>
+" }}}
+"
+"Code {{{
+autocmd filetype tex nnoremap <F5> :LLPStartPreview<CR>
 " }}}
 
 " Other {{{
@@ -214,16 +221,17 @@ if executable('rg')
 endif
 
 " {{{ UltiSnipsExpandTrigger
-"let g:UltiSnipsExpandTrigger="<>"
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<c-tab>'
+let g:ltiSnipsJumpBackwardTrigger="<s-tab>"
 " }}}
-
 
 " Latex{{{
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 set conceallevel=1
-let g:tex_conceal='abdmg'
+let g:tex_conceal='abdmgs'
+let g:livepreview_previewer = "zathura"
+let g:livepreview_cursorhold_recompile = 1
 " }}}

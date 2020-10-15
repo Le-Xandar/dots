@@ -1,0 +1,11 @@
+* Blogs :elfeed:
+** entry-title: \(linux\|linus\|ubuntu\|kde\|gnome\)                  :linux:
+** [[http://orgmode.org][Org Mode Links supported as well]]
+https://joshrollinswrites.com/index.xml
+** Software Development                                                 :dev:
+*** Emacs                                                    :emacs:mustread:
+*** Web Development :web:
+** Videos :videos:
+*** Youtube
+**** https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA
+**** https://www.youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg
