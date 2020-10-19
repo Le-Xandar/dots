@@ -57,3 +57,8 @@
 
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
+
+;; https://github.com/justinbarclay/elegant-agenda-mode
+(package! elegant-agenda-mode
+  :recipe (:host github :repo "justinbarclay/elegant-agenda-mode"
+           :files ("elegant-agenda-mode.el")))

@@ -4,3 +4,4 @@
 cpupower-gui
 fswatch
 notification-daemon
+xodotools

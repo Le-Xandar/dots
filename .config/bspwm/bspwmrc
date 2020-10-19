@@ -1,14 +1,16 @@
 #! /bin/sh 
+
+~/bin/autostart
 #pgrep -x sxhkd > /dev/null || sxhkd &
-pkill sxhkd && sxhkd &
+sxhkd &
 
 #Swallow
 pgrep ~/bin/bspswallow || ~/bin/bspswallow &
 
-~/bin/autostart
 ~/.config/polybar/launch.sh  &
 
-bspc monitor -d web code term misc mail 
+bspc monitor -d web code term misc tmp mail 
+bspc monitor eDP-1-1 -d  1 2 3
 
 bspc config border_width          2
 bspc config window_gap            13
@@ -22,7 +24,7 @@ bspc config focus_follows_pointer true
 # bspc rule -a Gimp desktop='^8' state=floating follow=on 
 bspc rule -a Chromium desktop='^web' 
 bspc rule -a Brave desktop='^1' 
-bspc rule -a Thunderbird desktop='^5' 
+bspc rule -a Thunderbird desktop='^6' 
 bspc rule -a KeePassXC desktop='^5' 
 bspc rule -a mplayer2 state=floating 
 bspc rule -a Emacs state=tiled
@@ -30,4 +32,10 @@ bspc rule -a Zathura state=tiled
 bspc rule -a Kupfer.py focus=on 
 bspc rule -a Screenkey manage=off 
 
-
+if [[ $my_laptop_external_monitor = *connected* ]]; then
+    echo "one screen"
+else
+bspc rule -a Brave desktop='^4' 
+bspc rule -a Thunderbird desktop='^9' 
+bspc rule -a KeePassXC desktop='^9' 
+fi

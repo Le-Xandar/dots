@@ -93,9 +93,9 @@ local terminal     = "kitty"
 local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local gui_editor   = os.getenv("GUI_EDITOR") or "emacs"
+local gui_editor   = os.getenv("GUI_EDITOR") or "emacsclient -nc || emacs"
 local browser      = os.getenv("BROWSER") or "icecat"
-local scrlocker    = "slock"
+local scrlocker    = "~/bin/lockscreen"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }

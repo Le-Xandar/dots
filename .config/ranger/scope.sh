@@ -63,6 +63,18 @@ handle_extension() {
             ## Avoid password prompt by providing empty password
             7z l -p -- "${FILE_PATH}" && exit 5
             exit 1;;
+        org)
+            TMPFILE="$(mktemp -t --suffix=.SUFFIX scope_sh.XXXXXX)"
+            cp "${FILE_PATH}" TMPFILE
+
+            trap "rm -f '$TMPFILE'" 0               # EXIT
+            trap "rm -f '$TMPFILE'; exit 1" 2       # INT
+            trap "rm -f '$TMPFILE'; exit 1" 1 15    # HUP TERM
+            7z l -p -- "${FILE_PATH}" && exit 5
+            exit 1;;
+        tex)
+            7z l -p -- "${FILE_PATH}" && exit 5
+            exit 1;;
 
         ## PDF
         pdf)

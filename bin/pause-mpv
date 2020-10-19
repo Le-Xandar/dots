@@ -1,0 +1,2 @@
+xdotool search --class mpv | xargs -I % xdotool key --window % space &&
+notify-send "MPV" "Pausing/Playing"
