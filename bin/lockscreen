@@ -1,0 +1,9 @@
+#!/bin/bash
+img=$(mktemp /tmp/XXXXXXXXXX.png)
+# Take a screenshot of current desktop
+import -window root $img 
+# Pixelate the screenshot
+convert $img -blur 9,9 $img
+i3lock -i $img -f
+rm $img
+

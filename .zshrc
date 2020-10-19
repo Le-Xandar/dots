@@ -1,7 +1,10 @@
 source  ~/.bashrc
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/bin:$HOME/.local/bin/:/usr/lib64:$PATH
-export PATH=$HOME/.local/bin/:/usr/lib64:$PATH
+typeset -U PATH path
+BINPATH="$HOME/bin"
+path+=("$BINPATH" ${BINPATH}/*/)
+export PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.config/.oh-my-zsh"
@@ -138,6 +141,13 @@ alias gentoo='neofetch --kitty Pictures/gentoo-logo.png'
 
 #support for gpg
 export GPG_TTY=$(tty)
+
+# exit on partianl command with Ctrl-D
+exit_zsh() { exit }
+zle -N exit_zsh
+bindkey '^D' exit_zsh
+
+
 #echo '
 # \e[H\e[2J
 #           \e[1;36m.

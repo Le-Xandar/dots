@@ -12,3 +12,5 @@ map K zoom in
 map J zoom out
 map i recolor
 map p print
+
+#set recolor-darkcolor "#32302f"

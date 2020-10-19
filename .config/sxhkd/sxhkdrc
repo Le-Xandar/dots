@@ -1,15 +1,35 @@
-#===============global==========================
+#===============XF86==========================
+#Increase Brightness
 XF86MonBrightnessUp
   light -A 10 || xbacklight -inc 10
 
+#Decrease Brightness
 XF86MonBrightnessDown
   light -U 10 || xbacklight -dec 10
 
+#Increase Volume
 XF86AudioRaiseVolume
   amixer -q sset 'Master' 1%+
 
+#Decrease Volume
 XF86AudioLowerVolume
   amixer -q sset 'Master' 1%-
+
+#Pause/unpause mpv
+XF86AudioPlay
+   ~/bin/pause-mpv
+
+XF86AudioNext
+   ~/bin/pause-mpv
+
+XF86AudioPrev
+   ~/bin/pause-mpv
+
+#Mail, Browser
+{XF86Mail,XF86HomePage}
+  {thunderbird, brave||firefox}
+
+
 #==================Other Progs======================
 super + space
   sh .config/polybar/scripts/menu_full
@@ -32,8 +52,6 @@ super + Escape
 super + e
   emacsclient -nc || emacs
 
-{XF86Mail,XF86HomePage}
-  {thunderbird, brave||firefox}
 
 #
 # bspwm hotkeys
@@ -42,7 +60,7 @@ super + e
 
 # Show Help
 super + slash
-	sxhkd-help
+	~/bin/sxhkd-help
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -58,7 +76,7 @@ super + m
 
 # send the newest marked node to the newest preselected node
 super + y
-	bspc node -n newest.\!automatic.local
+	bspc node -n newest.\!automatic
 
    #bspc node newest.marked.local -n newest.!automatic.local
 
@@ -92,9 +110,9 @@ super + ctrl + {m,x,z}
 # focus/swap
 #
 
-# focus the node in the given direction
+# focus the node in the given direction, if no node then focus monitor
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+    ~/bin/wm/focus -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
@@ -104,7 +122,7 @@ super + {p,b,comma,period}
 
 # next/prev desktop
 super + {i,u}
-  bspc desktop -f {next,prev}
+  bspc desktop -f {next,prev}.local
 
 # focus the next/previous window in the current desktop
 super + {_,shift + }c

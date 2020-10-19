@@ -3,18 +3,23 @@
 #compton
 
 ##emacs -fs &
+~/bin/monitor-setup
 
 setxkbmap -option ctrl:swapcaps 
 setxkbmap -option altwin:swap_lalt_lwin 
 setxkbmap -model pc105 -layout us,ar -variant ,qwerty -option grp:shifts_toggle 
-dbus-launch sxhkd &
+# dbus-launch sxhkd &
 
 #sleep 2
 picom --backend glx &!
 #gpg-agent --server &
 syncthing --no-browser &
 #feh --bg-fill ~/Pictures/monochrome.jpg
-feh --bg-fill $(cat ~/bin/config/wallpaper)
+
+#single monitor wallpaper
+#feh --bg-fill $(cat ~/bin/config/wallpaper) &
+# dual monitor 
+feh --bg-scale ~/Pictures/wallpapers/morning-wallpaper-cut1.jpg ~/Pictures/wallpapers/morning-wallpaper.-cut2.jpg # dual monitor 
 #Pictures/wander1.png
 
 #other
@@ -23,7 +28,8 @@ optimus-manager-qt &
 dbus-launch emacs --daemon &
 
 #if bspwm
-if [[	ps -e | grep bspwm ]]; then
-	thunderbird &
-	keepassxc &
-fi
+thunderbird &
+keepassxc &
+
+
+
