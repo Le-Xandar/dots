@@ -10,7 +10,6 @@ pgrep ~/bin/bspswallow || ~/bin/bspswallow &
 ~/.config/polybar/launch.sh  &
 
 bspc monitor -d web code term misc tmp mail 
-bspc monitor eDP-1-1 -d  1 2 3
 
 bspc config border_width          2
 bspc config window_gap            13

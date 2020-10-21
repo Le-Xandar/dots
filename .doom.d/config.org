@@ -122,10 +122,6 @@ Use Icons
      `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
 #+end_src
 *** Agenda
-**** UI
-#+begin_src emacs-lisp
-(add-hook 'org-agenda-hook 'elegant-agenda-mode)
-#+end_src
 **** custom commands
 #+begin_src emacs-lisp
 (setq org-agenda-custom-commands
@@ -134,14 +130,17 @@ Use Icons
                      ((org-agenda-skip-function
                        '(org-agenda-skip-entry-if 'todo 'done))
                       (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (agenda "" ((org-agenda-span 'day)
+          (agenda "" ((org-agenda-span 1)
                       (org-scheduled-delay-days -14)
                       (org-agenda-overriding-header "Schedule")))
           (tags-todo "SCHEDULED<\"<+1d>\""
                      ((org-agenda-skip-function
-                       '(or (org-agenda-skip-entry-if 'done)
-                            (air-org-skip-subtree-if-priority ?A)))
+                       '(or (org-agenda-skip-entry-if 'done)))
                       (org-agenda-overriding-header "Tasks:")))))))
+#+end_src
+*** Fill column
+#+begin_src emacs-lisp
+(setq-default fill-column 120)
 #+end_src
 ** Org Directory
 If you use `org' and don't want your org files in the default location below,
@@ -159,6 +158,10 @@ change `org-directory'. It must be set before org loads!
     ("begin" "$1" "$" "$$" "\\(" "\\["))))
 (set-default 'preview-scale-function 0.2)
 #+end_src
+Imagemagick since dvipng can't handle tikz \LaTeX
+#+begin_src emacs-lisp
+(setq org-latex-create-formula-image-program 'imagemagick)
+#+end_src
 *** Update Latex Fragments with font change
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
@@ -168,6 +171,12 @@ change `org-directory'. It must be set before org loads!
   (org-latex-preview '(16)))
 (add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
 #+end_src
+*** Tikz Preview
+#+begin_src emacs-lisp 
+(eval-after-load "preview"
+  '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
+#+end_src
+
 * Programming Languages
 ** Rust
 *** Use Rust Analyzer
@@ -206,8 +215,16 @@ https://genehack.blog/2020/08/web-mode-eglot-vetur-vuejs-=-happy/
 
 *** Set Completion Delay and prefix length
 #+begin_src emacs-lisp
-(setq company-idle-delay 0.1)
+(setq company-idle-delay 0)
 (setq company-minimum-prefix-length 1)
+#+end_src
+*** Backends
+#+begin_src emacs-lisp
+(add-to-list 'company-backends 'company-yasnippet)
+(add-to-list 'company-backends 'company-dabbrev-code)
+(add-to-list 'company-backends 'company-capf)
+(add-to-list 'company-backends 'company-keyword)
+(add-to-list 'company-backends 'company-files)
 #+end_src
 
 ** compile-on-save

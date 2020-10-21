@@ -45,22 +45,21 @@
 
   (setq org-hide-emphasis-markers t)
 
-(add-hook 'org-agenda-hook 'elegant-agenda-mode)
-
 (setq org-agenda-custom-commands
       '(("d" "Today"
          ((tags-todo "SCHEDULED<\"<+1d>\"&PRIORITY=\"A\""
                      ((org-agenda-skip-function
                        '(org-agenda-skip-entry-if 'todo 'done))
                       (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (agenda "" ((org-agenda-span 'day)
+          (agenda "" ((org-agenda-span 1)
                       (org-scheduled-delay-days -14)
                       (org-agenda-overriding-header "Schedule")))
           (tags-todo "SCHEDULED<\"<+1d>\""
                      ((org-agenda-skip-function
-                       '(or (org-agenda-skip-entry-if 'done)
-                            (air-org-skip-subtree-if-priority ?A)))
+                       '(or (org-agenda-skip-entry-if 'done)))
                       (org-agenda-overriding-header "Tasks:")))))))
+
+(setq-default fill-column 120)
 
 (setq org-directory "~/Documents/gtd/")
 
@@ -70,12 +69,17 @@
     ("begin" "$1" "$" "$$" "\\(" "\\["))))
 (set-default 'preview-scale-function 0.2)
 
+(setq org-latex-create-formula-image-program 'imagemagick)
+
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (defun update-org-latex-fragments ()
   (org-latex-preview '(64))
   (plist-put org-format-latex-options :scale text-scale-mode-amount)
   (org-latex-preview '(16)))
 (add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
+
+(eval-after-load "preview"
+  '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
 (setq rustic-lsp-server 'rust-analyzer)
 
@@ -92,8 +96,14 @@
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case t)
 
-(setq company-idle-delay 0.1)
+(setq company-idle-delay 0)
 (setq company-minimum-prefix-length 1)
+
+(add-to-list 'company-backends 'company-yasnippet)
+(add-to-list 'company-backends 'company-dabbrev-code)
+(add-to-list 'company-backends 'company-capf)
+(add-to-list 'company-backends 'company-keyword)
+(add-to-list 'company-backends 'company-files)
 
 (defun compile-on-save-start ()
   (let ((buffer (compilation-find-buffer)))

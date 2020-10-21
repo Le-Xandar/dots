@@ -61,4 +61,13 @@
 ;; https://github.com/justinbarclay/elegant-agenda-mode
 (package! elegant-agenda-mode
   :recipe (:host github :repo "justinbarclay/elegant-agenda-mode"
-           :files ("elegant-agenda-mode.el")))
+          ;; :files ("elegant-agenda-mode.el")
+           ))
+
+(package! elegant-emacs
+  :recipe (:host github :repo "rougier/elegant-emacs"
+           :files ("elegant-dark-theme.el"
+                   "elegant-light-theme.el"
+                   "elegance.el"
+                   "sanity.el" )
+           ))
