@@ -91,11 +91,15 @@ Use Icons
 #+begin_src emacs-lisp
 (map! "C-h" 'backward-delete-char-untabify)
 #+end_src
+** Fill column
+#+begin_src emacs-lisp
+(setq-default fill-column 80)
+#+end_src
 * Org-Mode
 ** UI
 *** hide the emphasis markup (e.g. /.../ for italics, *...* for bold, etc.):
 #+begin_src emacs-lisp
-  (setq org-hide-emphasis-markers t)
+  ;; (setq org-hide-emphasis-markers t)
 #+end_src
 *** Fonts
 #+begin_src emacs-lisp :tangle no
@@ -138,10 +142,6 @@ Use Icons
                        '(or (org-agenda-skip-entry-if 'done)))
                       (org-agenda-overriding-header "Tasks:")))))))
 #+end_src
-*** Fill column
-#+begin_src emacs-lisp
-(setq-default fill-column 120)
-#+end_src
 ** Org Directory
 If you use `org' and don't want your org files in the default location below,
 change `org-directory'. It must be set before org loads!
@@ -176,6 +176,29 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 (eval-after-load "preview"
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 #+end_src
+** ROAM
+*** Setup
+#+begin_src emacs-lisp
+(use-package org-roam-server
+  :after org-roam
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8078
+        org-roam-server-export-inline-images t
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20)
+  (defun org-roam-server-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (unless (server-running-p)
+      (org-roam-server-mode 1))
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
+#+end_src
+*** Set Directory
+#+begin_src emacs-lisp
+(setq org-roam-directory "~/Documents/roam/")
+#+end_src
 
 * Programming Languages
 ** Rust
@@ -204,7 +227,10 @@ https://genehack.blog/2020/08/web-mode-eglot-vetur-vuejs-=-happy/
 (add-hook 'genehack-vue-mode-hook #'eglot-ensure)
 (add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
 #+end_src
+** LaTeX
+#+begin_src emacs-lisp
 
+#+end_src
 * Minor Modes
 ** company-mode
 *** Use The Same Case
@@ -223,7 +249,7 @@ https://genehack.blog/2020/08/web-mode-eglot-vetur-vuejs-=-happy/
 (add-to-list 'company-backends 'company-yasnippet)
 (add-to-list 'company-backends 'company-dabbrev-code)
 (add-to-list 'company-backends 'company-capf)
-(add-to-list 'company-backends 'company-keyword)
+(add-to-list 'company-backends 'company-keywords)
 (add-to-list 'company-backends 'company-files)
 #+end_src
 

@@ -43,7 +43,9 @@
 
 (map! "C-h" 'backward-delete-char-untabify)
 
-  (setq org-hide-emphasis-markers t)
+(setq-default fill-column 80)
+
+  ;; (setq org-hide-emphasis-markers t)
 
 (setq org-agenda-custom-commands
       '(("d" "Today"
@@ -58,8 +60,6 @@
                      ((org-agenda-skip-function
                        '(or (org-agenda-skip-entry-if 'done)))
                       (org-agenda-overriding-header "Tasks:")))))))
-
-(setq-default fill-column 120)
 
 (setq org-directory "~/Documents/gtd/")
 
@@ -81,6 +81,24 @@
 (eval-after-load "preview"
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
+(use-package org-roam-server
+  :after org-roam
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8078
+        org-roam-server-export-inline-images t
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20)
+  (defun org-roam-server-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (unless (server-running-p)
+      (org-roam-server-mode 1))
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
+
+(setq org-roam-directory "~/Documents/roam/")
+
 (setq rustic-lsp-server 'rust-analyzer)
 
 (add-hook 'rust-mode-hook #'racer-mode)
@@ -93,6 +111,8 @@
 (add-hook 'genehack-vue-mode-hook #'eglot-ensure)
 (add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
 
+
+
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case t)
 
@@ -102,7 +122,7 @@
 (add-to-list 'company-backends 'company-yasnippet)
 (add-to-list 'company-backends 'company-dabbrev-code)
 (add-to-list 'company-backends 'company-capf)
-(add-to-list 'company-backends 'company-keyword)
+(add-to-list 'company-backends 'company-keywords)
 (add-to-list 'company-backends 'company-files)
 
 (defun compile-on-save-start ()
