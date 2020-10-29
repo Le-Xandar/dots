@@ -1,6 +1,0 @@
-#!/bin/sh
-exec --no-startup-id /usr/lib/gsd-xsettings
-exec_always --no-startup-id gnome-power-manager
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id gnome-flashback
-exec --no-startup-id /usr/bin/gnome-screensaver

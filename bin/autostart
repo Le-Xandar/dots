@@ -4,10 +4,8 @@
 
 ##emacs -fs &
 ~/bin/monitor-setup
+~/bin/startup/keyboard
 
-setxkbmap -option ctrl:swapcaps 
-setxkbmap -option altwin:swap_lalt_lwin 
-setxkbmap -model pc105 -layout us,ar -variant ,qwerty -option grp:shifts_toggle 
 # dbus-launch sxhkd &
 
 #sleep 2
@@ -17,9 +15,12 @@ syncthing --no-browser &
 #feh --bg-fill ~/Pictures/monochrome.jpg
 
 #single monitor wallpaper
-#feh --bg-fill $(cat ~/bin/config/wallpaper) &
+# feh --bg-fill $(cat ~/bin/config/wallpaper) &
+# feh --bg-fill $(cat ~/bin/config/wallpaper) &
+feh --randomize --bg-fill Pictures/wallpapers
+
 # dual monitor 
-feh --bg-scale ~/Pictures/wallpapers/morning-wallpaper-cut1.jpg ~/Pictures/wallpapers/morning-wallpaper.-cut2.jpg # dual monitor 
+#feh --bg-scale ~/Pictures/wallpapers/morning-wallpaper-cut1.jpg ~/Pictures/wallpapers/morning-wallpaper.-cut2.jpg # dual monitor 
 #Pictures/wander1.png
 
 #other

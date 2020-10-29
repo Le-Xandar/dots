@@ -1,7 +1,10 @@
 * Blogs :elfeed:
 ** entry-title: \(linux\|linus\|ubuntu\|kde\|gnome\)                  :linux:
 ** [[http://orgmode.org][Org Mode Links supported as well]]
-** FreeSoftware
+** FreeSoftware                                                       :FLOSS:
+*** https://brettgilio.com/rss.xml
+*** https://drewdevault.com/blog/index.xml
+*** https://icyphox.sh/blog/feed.xml
 ** Software Development :dev:
 *** Emacs                                                            :emacs:
 **** https://joshrollinswrites.com/index.xml
@@ -11,3 +14,4 @@
 *** Youtube
 **** https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA
 **** https://www.youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg
+**** https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA

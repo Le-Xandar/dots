@@ -88,7 +88,7 @@ set shiftwidth=2
 set expandtab
 set hidden
 set nu
-set nowrap
+set wrap
 set smartcase
 set noswapfile
 set nobackup
@@ -103,48 +103,49 @@ set textwidth=80
 
 
 " Windows {{{
-nnoremap <leader>wh :wincmd h<CR>
-nnoremap <leader>wj :wincmd j<CR>
-nnoremap <leader>wk :wincmd k<CR>
-nnoremap <leader>wl :wincmd l<CR>
-nnoremap <leader>ws :split<CR>
-nnoremap <leader>wv :vsplit<CR>
-nnoremap <leader>wd :hide<CR>
+nnoremap <leader>wh :wincmd h<CR> " focus left  window 
+nnoremap <leader>wj :wincmd j<CR> " focus down  window 
+nnoremap <leader>wk :wincmd k<CR> " focus up    window 
+nnoremap <leader>wl :wincmd l<CR> " focus right window 
+nnoremap <leader>ws :split<CR>    " split horizontally
+nnoremap <leader>wv :vsplit<CR>   " split Vertically
+nnoremap <leader>wd :hide<CR>     " hide window
 " }}}
 "
 "Buffers {{{
-nnoremap <leader>bs :w<CR>
-nnoremap <leader>bk :BD!<CR>
-nnoremap <leader>bd :BD<CR>
-nnoremap <leader>bh :bp<CR>
-nnoremap <leader>bl :bn<CR>
-nnoremap <leader>br! :e<CR>
+nnoremap <leader>bs :w<CR>        " save buffer
+nnoremap <leader>bk :BD!<CR>      " kill buffer, forcefully
+nnoremap <leader>bd :BD<CR>       " kill buffer, prompt save
+nnoremap <leader>bh :bp<CR>       " switch  to left buffer
+nnoremap <leader>bl :bn<CR>       " switch  to right buffer
+nnoremap <leader>br! :e<CR>       " refresh buffer
 "}}}
 
 "Tabs {{{
-nnoremap <leader><tab>j :tabprevious<CR>
-nnoremap <leader><tab>k :tabnext<CR>
-nnoremap <leader><tab>l :tablast<CR>
-nnoremap <leader><tab>d :tabclose<CR>
-nnoremap <leader><tab>n :tabnew<CR>
+nnoremap <leader><tab>j :tabprevious<CR> " prev  tab
+nnoremap <leader><tab>k :tabnext<CR>     " next  tab
+nnoremap <leader><tab>l :tablast<CR>     " last  tab
+nnoremap <leader><tab>d :tabclose<CR>    " close tab
+nnoremap <leader><tab>n :tabnew<CR>      " new   tab
 "}}}
 
 " Files{{{
-nnoremap <leader>op :NERDTreeToggle .<CR>
-nnoremap <leader>fp :e ~/.vimrc<CR>
+nnoremap <leader>op :NERDTreeToggle .<CR> " Nerd tree
+nnoremap <leader>fp :e ~/.vimrc<CR>       " open this file
 " }}
 
 "Open {{{
-nnoremap <leader>oT :term<CR>
+nnoremap <leader>ot :split <CR> :wincmd j <CR>  :term <CR> :res 15 <CR> " open terminal in a split buffer
+nnoremap <leader>oT :term<CR>                                           " open terminal in this buffer
 " }}}
 "
 "Code {{{
-autocmd filetype tex nnoremap <F5> :LLPStartPreview<CR>
+autocmd filetype tex nnoremap <F5> :LLPStartPreview<CR>  "compile
 " }}}
 
 " Other {{{
-nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>. :Ranger<CR>
+nnoremap <leader>u :UndotreeShow<CR>  " show undotree
+nnoremap <leader>. :Ranger<CR>        " show ranger
 
  "extras
   tnoremap <Esc> <C-\><C-n>
