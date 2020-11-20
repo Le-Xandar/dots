@@ -15,6 +15,7 @@ HOMEDIRS=(
 	"Sync"
 	".gnupg"
 	".mozilla"
+	".thunderbird"
 	".emacs.d"
 	".ssh"
 	".telega"

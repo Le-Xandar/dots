@@ -1,0 +1,3 @@
+#!/bin/sh
+fusermount -u "$HOME/GDrive"
+/usr/bin/rclone mount GDrive: "$HOME/GDrive"  --vfs-cache-mode full

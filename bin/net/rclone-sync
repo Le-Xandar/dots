@@ -1,3 +1,10 @@
 #!/bin/bash
-/usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "/home/westofer/Documents" "GDrive:Documents"
 
+/usr/bin/notify-send "rclone GDrive" "Sync Started"
+
+
+/usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "/home/westofer/Documents/uni" "GDrive:Documents/uni" || /usr/bin/notify-send "rclone Failed" "Uni GDrive Failed"
+
+/usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "/home/westofer/Documents/gtd" "GDrive:Documents/gtd" || /usr/bin/notify-send "rclone Failed" "Uni GDrive Failed"
+
+/usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "/home/westofer/Documents/roam" "GDrive:Documents/roam" || /usr/bin/notify-send "rclone Failed" "Uni GDrive Failed"

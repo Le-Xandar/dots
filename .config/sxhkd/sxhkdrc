@@ -30,7 +30,7 @@ XF86AudioPrev
   {thunderbird, brave||firefox}
 
 
-#==================Other Progs======================
+#==================Progs======================
 #super + space
   #sh .config/polybar/scripts/menu_full
 # wm independent hotkeys
@@ -52,9 +52,27 @@ super + Escape
 super + e
   emacsclient -nc || emacs
 
+# show poly-bar
+super + b
+  polybar-msg cmd show; bspc config -m focused bottom_padding 26
+  #polybar-msg cmd hide; bspc config -m focused bottom_padding $((`bspc config -m focused top_padding` - 27 ))
+
+# hide poly-bar
+super + shift + b
+  polybar-msg cmd hide; bspc config -m focused bottom_padding 0
+  #polybar-msg cmd show; bspc config -m focused bottom_padding $((`bspc config -m focused top_padding` + 27 ))
+
+
 #emacs everywhere
 # super + space
 #   ~/bin/emacs-everywhere/emacs-everywhere
+
+#======================== scripts and  other ===
+#Lockscreen
+super + {Pause}
+  {~/bin/wm/lockscreen}
+
+#=============================
 
 
 #
@@ -64,7 +82,7 @@ super + e
 
 # Show Help
 super + slash
-	~/bin/sxhkd-help
+	~/bin/wm/sxhkd-help
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -99,9 +117,11 @@ super + ctrl + {equal, minus}
 #Sticky , hide
 super + {p,n}
    bspc node -g {sticky,hidden,}
-#unhide
+
+# unhide
 super + ctrl + n
-  bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
+  bspc node $(bspc query -N -n .hidden.local | tail -n1) -g hidden=off
+
 # set the window state
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,\~floating,\~fullscreen}
@@ -119,8 +139,8 @@ super + {_,shift + }{h,j,k,l}
     ~/bin/wm/focus -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
+super + {p,comma,period}
+	bspc node -f @{parent,first,second}
 
 # Desktop===========================================================
 

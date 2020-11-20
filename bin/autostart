@@ -8,16 +8,13 @@
 
 # dbus-launch sxhkd &
 
-#sleep 2
-picom --backend glx &!
 #gpg-agent --server &
-syncthing --no-browser &
+#syncthing --no-browser &
 #feh --bg-fill ~/Pictures/monochrome.jpg
 
 #single monitor wallpaper
-# feh --bg-fill $(cat ~/bin/config/wallpaper) &
-# feh --bg-fill $(cat ~/bin/config/wallpaper) &
-feh --randomize --bg-fill Pictures/wallpapers
+feh --bg-fill "$(cat ~/bin/config/wallpaper)" &
+# feh --randomize --bg-fill Pictures/wallpapers
 
 # dual monitor 
 #feh --bg-scale ~/Pictures/wallpapers/morning-wallpaper-cut1.jpg ~/Pictures/wallpapers/morning-wallpaper.-cut2.jpg # dual monitor 
@@ -27,10 +24,11 @@ feh --randomize --bg-fill Pictures/wallpapers
 flameshot &
 optimus-manager-qt &
 dbus-launch emacs --daemon &
+uim-toolbar-gtk3-systray & #uim Japanses Input
 
 #if bspwm
+
+picom --config "$HOME/.config/picom.conf" &
+
 thunderbird &
 keepassxc &
-
-
-

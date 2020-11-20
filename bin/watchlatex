@@ -1,0 +1,73 @@
+#!/bin/bash
+
+filename=$1
+basname="${filename%.*}"
+
+
+# $@ is all command line parameters passed to the script.
+# -o is for short options like -v
+# -l is for long options with double dash like --version
+# the comma separates different long options
+# -a is for long options with single dash like -version
+options=$(getopt -l "help,open::,time::,output::" -o "ho::t::o::" -a -- "$@")
+
+
+showHelp() {
+# `cat << EOF` This means that cat should stop reading when EOF is detected
+cat << EOF  
+Usage: ./installer -v <espo-version> [-hrV]
+Install Pre-requisites for EspoCRM with docker in Development mode
+
+-h, -help,          --help                  Display help
+
+-o, -open<reader>,  --open<reader>          Open in pdf reader, (default zathura)
+
+-t, -time<seconds>,  --time<seconds>        Recompile time (default 2sec)
+
+
+EOF
+# EOF is found above and hence cat command stops reading. This is equivalent to echo but much neater when printing out.
+}
+
+open=0
+time=2
+eval set -- "$options"
+
+
+while true
+do
+case $1 in
+-h|--help) 
+    showHelp
+    exit 0
+    ;;
+-o|--open) 
+    shift
+    export open=$1
+    ;;
+-t|--time)
+    shift
+    export time=$1
+    ;;
+--)
+    shift
+    break;;
+esac
+shift
+done
+
+
+#################################### MAIN
+
+if [ $open -ne 0 ]; then
+    echo "opening editor"
+ $open "${basname}.pdf" && zathura "${basname}.pdf" &
+fi 
+
+while true; do sleep $time;
+echo "hi"
+  if [ "${basname}.tex" -nt "${basname}.log" ]; then 
+    echo "compiling...."
+    pdflatex -halt-on-error "${basname}.tex";
+  fi;
+done
