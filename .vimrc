@@ -103,6 +103,11 @@ set textwidth=80
 
 
 " Windows {{{
+nnoremap <leader>qq :qall <CR> " quit all
+nnoremap <leader>qQ :qall! <CR> " quit all force
+nnoremap <leader>QQ :qall! <CR> " quit all force
+nnoremap <leader>Qq :qall! <CR> " quit all force
+
 nnoremap <leader>wh :wincmd h<CR> " focus left  window 
 nnoremap <leader>wj :wincmd j<CR> " focus down  window 
 nnoremap <leader>wk :wincmd k<CR> " focus up    window 

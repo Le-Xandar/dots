@@ -78,3 +78,5 @@
   :recipe (:host github :repo "org-roam/company-org-roam"))
 
 ;; (package! org-roam-server)
+
+(package! mixed-pitch)

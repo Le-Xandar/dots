@@ -20,12 +20,14 @@
 (setq user-full-name "Westofer Raymond"
       user-mail-address "WestoferRaymond@gmail.com")
 
-(setq doom-font (font-spec :family "Fira Code" :size 11 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans" :size 11))
+;; (setq doom-font (font-spec :family "Fira Code" :size 11 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "sans" :size 11))
+;;(setq doom-font (font-spec :family "Open Sans" :size 12 :weight 'regular)
+;;doom-variable-pitch-font (font-spec :family "sans" :size 12))
 
 (setq doom-theme 'doom-dracula)
 
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 't)
 
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
@@ -45,7 +47,10 @@
 
 (setq-default fill-column 80)
 
-  ;; (setq org-hide-emphasis-markers t)
+(setq scroll-conservatively 10)
+(setq scroll-margin 10)
+
+(setq org-hide-emphasis-markers t)
 
 (setq org-agenda-custom-commands
       '(("d" "Today"
@@ -81,6 +86,37 @@
 (eval-after-load "preview"
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
+(after! org (add-hook 'org-mode-hook 'turn-on-org-cdlatex))
+
+(cl-defmacro lsp-org-babel-enable (lang)
+  "Support LANG in org source code block."
+  (setq centaur-lsp 'lsp-mode)
+  (cl-check-type lang stringp)
+  (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+         (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
+    `(progn
+       (defun ,intern-pre (info)
+         (let ((file-name (->> info caddr (alist-get :file))))
+           (unless file-name
+             (setq file-name (make-temp-file "babel-lsp-")))
+           (setq buffer-file-name file-name)
+           (lsp-deferred)))
+       (put ',intern-pre 'function-documentation
+            (format "Enable lsp-mode in the buffer of org source block (%s)."
+                    (upcase ,lang)))
+       (if (fboundp ',edit-pre)
+           (advice-add ',edit-pre :after ',intern-pre)
+         (progn
+           (defun ,edit-pre (info)
+             (,intern-pre info))
+           (put ',edit-pre 'function-documentation
+                (format "Prepare local buffer environment for org source block (%s)."
+                        (upcase ,lang))))))))
+(defvar org-babel-lang-list
+  '("go" "python" "ipython" "bash" "sh"))
+(dolist (lang org-babel-lang-list)
+  (eval `(lsp-org-babel-enable ,lang)))
+
 (use-package org-roam-server
   :after org-roam
   :config
@@ -111,16 +147,38 @@
 (add-hook 'genehack-vue-mode-hook #'eglot-ensure)
 (add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
 
+(setq +latex-viewers '(zathura pdf-tools evince okular skim sumatrapdf))
+(add-hook 'LaTeX-mode-hook #'mixed-pitch-mode)
 
+(setq tec/yas-latex-template-preamble "
+<<latex-nice-preable>>
+")
+
+(defun tec/yas-latex-get-class-choice ()
+  "Prompt user for LaTeX class choice"
+  (setq tec/yas-latex-class-choice (ivy-read "Select document class: " '("article" "scrartcl" "bmc") :def "bmc")))
+
+(defun tec/yas-latex-preamble-if ()
+  "Based on class choice prompt for insertion of default preamble"
+  (if (equal tec/yas-latex-class-choice "bmc") 'nil
+    (eq (read-char-choice "Include default preamble? [Type y/n]" '(?y ?n)) ?y)))
+
+(map!  :map LaTeX-mode-map
+       :i "TAB" 'cdlatex-tab
+       )
+
+;; (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode nil)))
+;; (add-hook 'LaTeX-mode-hook 'auto-fill-column)
 
 (setq company-dabbrev-downcase nil)
-(setq company-dabbrev-ignore-case t)
+(setq company-dabbrev-ignore-case 'keep-prefix)
 
-(setq company-idle-delay 0)
+(setq company-idle-delay 0.2)
 (setq company-minimum-prefix-length 1)
 
-(add-to-list 'company-backends 'company-yasnippet)
+(add-to-list 'company-backends 'company-dabbrev)
 (add-to-list 'company-backends 'company-dabbrev-code)
+(add-to-list 'company-backends 'company-yasnippet)
 (add-to-list 'company-backends 'company-capf)
 (add-to-list 'company-backends 'company-keywords)
 (add-to-list 'company-backends 'company-files)
@@ -184,3 +242,6 @@ nothing happens."
              do (elfeed-v-mpv it (elfeed-entry-title entry))) ;; print title
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
+
+(when EMACS28+
+  (add-hook 'latex-mode-hook #'TeX-latex-mode))

@@ -1,3 +1,4 @@
+# -*- eval:(org-content 2) -*-
 #+TITLE: Config
 #+STARTUP: content
 
@@ -43,26 +44,28 @@ are the three important ones:
 + src_lisp{doom-font'}
 + src_lisp{doom-variable-pitch-font'}
 + src_lisp{doom-big-font'} -- used for `doom-big-font-mode'; use this for
-  presentations or streaming.
+presentations or streaming.
 
-  They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-  font string. You generally only need these two:
+They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+font string. You generally only need these two:
 *** Font
 #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "Fira Code" :size 11 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans" :size 11))
+;; (setq doom-font (font-spec :family "Fira Code" :size 11 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "sans" :size 11))
+;;(setq doom-font (font-spec :family "Open Sans" :size 12 :weight 'regular)
+;;doom-variable-pitch-font (font-spec :family "sans" :size 12))
 #+end_src
 *** Theme
 There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set src_elisp{`doom-theme'} or manually load a theme
 with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
-doom-theme 'doom-one)}
+                                                                          doom-theme 'doom-one)}
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-dracula)
 #+end_src
 *** Line Numbers
 #+begin_src emacs-lisp
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 't)
 #+end_src
 *** Neotree
 Use Icons
@@ -95,35 +98,39 @@ Use Icons
 #+begin_src emacs-lisp
 (setq-default fill-column 80)
 #+end_src
+** Scroll
+#+begin_src emacs-lisp
+(setq scroll-conservatively 10)
+(setq scroll-margin 10)
+#+end_src
 * Org-Mode
 ** UI
 *** hide the emphasis markup (e.g. /.../ for italics, *...* for bold, etc.):
 #+begin_src emacs-lisp
-  ;; (setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers t)
 #+end_src
 *** Fonts
 #+begin_src emacs-lisp :tangle no
-  (let* ((variable-tuple
-          (cond ((x-list-fonts "ETBembo")         '(:font "ETBembo"))
-                ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-                ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-                ((x-list-fonts "Verdana")         '(:font "Verdana"))
-                ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-                (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-         (base-font-color     (face-foreground 'default nil 'default))
-         (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+(let* ((variable-tuple
+        (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+              ((x-list-fonts "Verdana")         '(:font "Verdana"))
+              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
 
-    (custom-theme-set-faces
-     'user
-     `(org-level-8 ((t (,@headline ,@variable-tuple))))
-     `(org-level-7 ((t (,@headline ,@variable-tuple))))
-     `(org-level-6 ((t (,@headline ,@variable-tuple))))
-     `(org-level-5 ((t (,@headline ,@variable-tuple))))
-     `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
-     `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
-     `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
-     `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
-     `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
 #+end_src
 *** Agenda
 **** custom commands
@@ -172,9 +179,44 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 (add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
 #+end_src
 *** Tikz Preview
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (eval-after-load "preview"
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
+#+end_src
+*** nice to be able to use cdlatex.
+#+begin_src emacs-lisp
+(after! org (add-hook 'org-mode-hook 'turn-on-org-cdlatex))
+#+end_src
+*** Now, by default, LSPs don’t really function at all in src blocks.
+#+begin_src emacs-lisp
+(cl-defmacro lsp-org-babel-enable (lang)
+  "Support LANG in org source code block."
+  (setq centaur-lsp 'lsp-mode)
+  (cl-check-type lang stringp)
+  (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+         (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
+    `(progn
+       (defun ,intern-pre (info)
+         (let ((file-name (->> info caddr (alist-get :file))))
+           (unless file-name
+             (setq file-name (make-temp-file "babel-lsp-")))
+           (setq buffer-file-name file-name)
+           (lsp-deferred)))
+       (put ',intern-pre 'function-documentation
+            (format "Enable lsp-mode in the buffer of org source block (%s)."
+                    (upcase ,lang)))
+       (if (fboundp ',edit-pre)
+           (advice-add ',edit-pre :after ',intern-pre)
+         (progn
+           (defun ,edit-pre (info)
+             (,intern-pre info))
+           (put ',edit-pre 'function-documentation
+                (format "Prepare local buffer environment for org source block (%s)."
+                        (upcase ,lang))))))))
+(defvar org-babel-lang-list
+  '("go" "python" "ipython" "bash" "sh"))
+(dolist (lang org-babel-lang-list)
+  (eval `(lsp-org-babel-enable ,lang)))
 #+end_src
 ** ROAM
 *** Setup
@@ -199,8 +241,7 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 #+begin_src emacs-lisp
 (setq org-roam-directory "~/Documents/roam/")
 #+end_src
-
-* Programming Languages
+* Languages
 ** Rust
 *** Use Rust Analyzer
 #+begin_src emacs-lisp
@@ -228,26 +269,58 @@ https://genehack.blog/2020/08/web-mode-eglot-vetur-vuejs-=-happy/
 (add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
 #+end_src
 ** LaTeX
+**** dd
 #+begin_src emacs-lisp
-
+(setq +latex-viewers '(zathura pdf-tools evince okular skim sumatrapdf))
+(add-hook 'LaTeX-mode-hook #'mixed-pitch-mode)
 #+end_src
+For use in the new-file template, let’s set out a nice preamble we may want to use. Then let’s bind the content to a function, and define some nice helpers.
+
+
+#+begin_src emacs-lisp
+(setq tec/yas-latex-template-preamble "
+<<latex-nice-preable>>
+")
+
+(defun tec/yas-latex-get-class-choice ()
+  "Prompt user for LaTeX class choice"
+  (setq tec/yas-latex-class-choice (ivy-read "Select document class: " '("article" "scrartcl" "bmc") :def "bmc")))
+
+(defun tec/yas-latex-preamble-if ()
+  "Based on class choice prompt for insertion of default preamble"
+  (if (equal tec/yas-latex-class-choice "bmc") 'nil
+    (eq (read-char-choice "Include default preamble? [Type y/n]" '(?y ?n)) ?y)))
+#+end_src
+****  Cdlatex-tab
+#+begin_src emacs-lisp
+(map!  :map LaTeX-mode-map
+       :i "TAB" 'cdlatex-tab
+       )
+#+end_src
+**** Modes
+#+begin_src emacs-lisp
+;; (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode nil)))
+;; (add-hook 'LaTeX-mode-hook 'auto-fill-column)
+#+end_src
+
 * Minor Modes
 ** company-mode
 *** Use The Same Case
 #+begin_src emacs-lisp
 (setq company-dabbrev-downcase nil)
-(setq company-dabbrev-ignore-case t)
+(setq company-dabbrev-ignore-case 'keep-prefix)
 #+end_src
 
 *** Set Completion Delay and prefix length
 #+begin_src emacs-lisp
-(setq company-idle-delay 0)
+(setq company-idle-delay 0.2)
 (setq company-minimum-prefix-length 1)
 #+end_src
 *** Backends
 #+begin_src emacs-lisp
-(add-to-list 'company-backends 'company-yasnippet)
+(add-to-list 'company-backends 'company-dabbrev)
 (add-to-list 'company-backends 'company-dabbrev-code)
+(add-to-list 'company-backends 'company-yasnippet)
 (add-to-list 'company-backends 'company-capf)
 (add-to-list 'company-backends 'company-keywords)
 (add-to-list 'company-backends 'company-files)
@@ -286,13 +359,13 @@ Takes feeds from Org-File
 #+end_src
 
 *** Refresh Feed
- Set up the url-queue variables for swift and complete operation. The
- defaults are too bad. Especially /url-queue-timeout/ is way too short
- for loading feeds.
- #+begin_src emacs-lisp
+Set up the url-queue variables for swift and complete operation. The
+defaults are too bad. Especially /url-queue-timeout/ is way too short
+for loading feeds.
+#+begin_src emacs-lisp
 (setf url-queue-parallel-processes 20
       url-queue-timeout 10)
- #+end_src
+#+end_src
 ** Key Maps
 | KeyBinds | Usage         |
 |----------+---------------|
@@ -354,4 +427,10 @@ Run video in mpv
              do (elfeed-v-mpv it (elfeed-entry-title entry))) ;; print title
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
+#+end_src
+* Fixes
+In case of Emacs28,
+#+begin_src emacs-lisp
+(when EMACS28+
+  (add-hook 'latex-mode-hook #'TeX-latex-mode))
 #+end_src

@@ -5,6 +5,7 @@
 *** https://brettgilio.com/rss.xml
 *** https://drewdevault.com/blog/index.xml
 *** https://icyphox.sh/blog/feed.xml
+*** https://alirezahayati.com/category/privacy/feed
 ** Software Development :dev:
 *** Emacs                                                            :emacs:
 **** https://joshrollinswrites.com/index.xml
