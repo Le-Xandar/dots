@@ -27,10 +27,9 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 # Japanese Input
-export GTK_IM_MODULE='uim'
-export QT_IM_MODULE='uim'
-uim-xim &
-export XMODIFIERS='@im=uim'
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then

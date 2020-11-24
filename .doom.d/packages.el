@@ -55,6 +55,8 @@
 (package! elpher)
 (package! eglot)
 
+(package! ox-json);; org to json
+
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
 
@@ -76,6 +78,8 @@
 (unpin! org-roam org-roam-server)
 (package! company-org-roam
   :recipe (:host github :repo "org-roam/company-org-roam"))
+
+
 
 ;; (package! org-roam-server)
 

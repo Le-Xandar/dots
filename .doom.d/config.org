@@ -241,6 +241,10 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 #+begin_src emacs-lisp
 (setq org-roam-directory "~/Documents/roam/")
 #+end_src
+** Modes
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
+#+end_src
 * Languages
 ** Rust
 *** Use Rust Analyzer
@@ -299,8 +303,9 @@ For use in the new-file template, let’s set out a nice preamble we may want to
 #+end_src
 **** Modes
 #+begin_src emacs-lisp
-;; (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode nil)))
-;; (add-hook 'LaTeX-mode-hook 'auto-fill-column)
+ (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode nil)))
+ (add-hook 'LaTeX-mode-hook 'auto-fill-column)
+ (add-hook 'LateX-mode-hook #'mixed-pitch-mode)
 #+end_src
 
 * Minor Modes
@@ -427,6 +432,10 @@ Run video in mpv
              do (elfeed-v-mpv it (elfeed-entry-title entry))) ;; print title
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
+#+end_src
+** Modes
+#+begin_src emacs-lisp
+ (add-hook 'elfeed-show-mode-hook #'mixed-pitch-mode)
 #+end_src
 * Fixes
 In case of Emacs28,
