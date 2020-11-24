@@ -135,6 +135,8 @@
 
 (setq org-roam-directory "~/Documents/roam/")
 
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
+
 (setq rustic-lsp-server 'rust-analyzer)
 
 (add-hook 'rust-mode-hook #'racer-mode)
@@ -167,8 +169,9 @@
        :i "TAB" 'cdlatex-tab
        )
 
-;; (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode nil)))
-;; (add-hook 'LaTeX-mode-hook 'auto-fill-column)
+ (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode nil)))
+ (add-hook 'LaTeX-mode-hook 'auto-fill-column)
+ (add-hook 'LateX-mode-hook #'mixed-pitch-mode)
 
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case 'keep-prefix)
@@ -242,6 +245,8 @@ nothing happens."
              do (elfeed-v-mpv it (elfeed-entry-title entry))) ;; print title
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
+
+ (add-hook 'elfeed-show-mode-hook #'mixed-pitch-mode)
 
 (when EMACS28+
   (add-hook 'latex-mode-hook #'TeX-latex-mode))

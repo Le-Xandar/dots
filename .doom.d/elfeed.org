@@ -2,14 +2,13 @@
 ** entry-title: \(linux\|linus\|ubuntu\|kde\|gnome\)                  :linux:
 ** [[http://orgmode.org][Org Mode Links supported as well]]
 ** FreeSoftware                                                       :FLOSS:
-*** https://brettgilio.com/rss.xml
-*** https://drewdevault.com/blog/index.xml
+*** https://brettgilio.ml/rss.xml                                 :mustread:
+*** https://drewdevault.com/blog/index.xml                        :mustread:
 *** https://icyphox.sh/blog/feed.xml
 *** https://alirezahayati.com/category/privacy/feed
 ** Software Development :dev:
 *** Emacs                                                            :emacs:
 **** https://joshrollinswrites.com/index.xml
-**** https://brettgilio.ml/rss.xml                               :mustread:
 *** Web Development :web:
 ** Videos :videos:
 *** Youtube

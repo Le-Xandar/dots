@@ -129,4 +129,4 @@ fi
 #    . /etc/bash_completion
 #  fi
 #fi
-export PATH="$HOME/bin:~/.local/share/cargo/bin:$GOPATH:$PATH"
+export PATH="$HOME/bin:$CARGO_HOME/bin:$GOPATH:$PATH"

@@ -9,7 +9,6 @@
 # dbus-launch sxhkd &
 
 #gpg-agent --server &
-#syncthing --no-browser &
 #feh --bg-fill ~/Pictures/monochrome.jpg
 
 #single monitor wallpaper
@@ -32,3 +31,5 @@ picom --config "$HOME/.config/picom.conf" &
 
 thunderbird &
 keepassxc &
+ibus-daemon -drx &
+syncthing --no-browser &

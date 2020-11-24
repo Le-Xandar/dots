@@ -147,7 +147,7 @@ exit_zsh() { exit }
 zle -N exit_zsh
 bindkey '^D' exit_zsh
 
-
+pfetch
 #echo '
 # \e[H\e[2J
 #           \e[1;36m.
