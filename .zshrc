@@ -181,3 +181,4 @@ pfetch
 #  ▟███▀▘                       ▝▀███▙ 
 # ▟▛▀                               ▀▜▙ 
 #'
+if [ -e /home/westofer/.nix-profile/etc/profile.d/nix.sh ]; then . /home/westofer/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
