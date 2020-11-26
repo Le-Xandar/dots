@@ -48,7 +48,9 @@
 (setq-default fill-column 80)
 
 (setq scroll-conservatively 10)
-(setq scroll-margin 10)
+(setq scroll-margin 5)
+
+(add-hook 'text-mode-hook 'mixed-pitch-mode)
 
 (setq org-hide-emphasis-markers t)
 
@@ -169,9 +171,8 @@
        :i "TAB" 'cdlatex-tab
        )
 
- (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode nil)))
- (add-hook 'LaTeX-mode-hook 'auto-fill-column)
- (add-hook 'LateX-mode-hook #'mixed-pitch-mode)
+ (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode -1)))
+ (add-hook 'LaTeX-mode-hook #'auto-fill-mode)
 
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case 'keep-prefix)
@@ -200,6 +201,8 @@ nothing happens."
       (progn  (make-local-variable 'after-save-hook)
               (add-hook 'after-save-hook 'compile-on-save-start nil t))
     (kill-local-variable 'after-save-hook)))
+
+ (add-hook 'helpful-mode-hook #'mixed-pitch-mode)
 
 (setq-default elfeed-search-filter "@1-week-ago")
 

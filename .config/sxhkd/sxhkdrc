@@ -17,13 +17,13 @@ XF86AudioLowerVolume
 
 #Pause/unpause mpv
 XF86AudioPlay
-   ~/bin/pause-mpv
+   ~/bin/multimedia/pause-mpv
 
 XF86AudioNext
-   ~/bin/pause-mpv
+   ~/bin/multimedia/pause-mpv
 
 XF86AudioPrev
-   ~/bin/pause-mpv
+   ~/bin/multimedia/pause-mpv
 
 #Mail, Browser
 {XF86Mail,XF86HomePage}
