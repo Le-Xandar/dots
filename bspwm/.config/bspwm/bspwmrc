@@ -13,6 +13,7 @@ bspc monitor -d I II III IV V VI
 
 bspc config border_width          1
 bspc config window_gap            10
+bspc config normal_border_color  '#000000'
 bspc config focused_border_color "#FFFFFF"
 
 bspc config directional_focus_tightness low
