@@ -1,6 +1,6 @@
-source  ~/.bashrc
-# If you come from bash you might have to change your $PATH.
-#export PATH=$HOME/bin:$HOME/.local/bin/:/usr/lib64:$PATH
+if [ -f ~/.config/sh_vars/variables.sh ]; then  .  $HOME/.config/sh_vars/variables.sh ;fi
+if [ -f ~/.config/sh_vars/aliases.sh ]; then  .  $HOME/.config/sh_vars/aliases.sh ;fi
+
 typeset -U PATH path
 BINPATH="$HOME/bin"
 path+=("$BINPATH" ${BINPATH}/*/)
@@ -8,6 +8,7 @@ export PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.config/.oh-my-zsh"
+eval "$(starship init zsh)"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -148,37 +149,3 @@ zle -N exit_zsh
 bindkey '^D' exit_zsh
 
 pfetch
-#echo '
-# \e[H\e[2J
-#           \e[1;36m.
-#          \e[1;36m/#\
-#         \e[1;36m/###\      \e[1;37m               #     \e[1;36m| *
-#        \e[1;36m/p^###\     \e[1;37m a##e #%" a#"e 6##%  \e[1;36m| | |-^-. |   | \ /
-#       \e[1;36m/##P^q##\    \e[1;37m.oOo# #   #    #  #  \e[1;36m| | |   | |   |  X
-#      \e[1;36m/##(   )##\   \e[1;37m%OoO# #   %#e" #  #  \e[1;36m| | |   | ^._.| / \ \e[0;37mTM
-#     \e[1;36m/###P   q#,^\
-#    \e[1;36m/P^         ^q\ \e[0;37mTM
-#'
-
-#echo '
-#\033[38;2;23;147;209m                   ▄
-#                  ▟█▙                                  ____              _  _
-#                 ▟███▙                                / ___|  _ __ ___  (_)| |  ___
-#                ▟█████▙                               \___ \ | `_ ` _ \ | || | / _ \
-#               ▟███████▙                               ___)| | | | | | || || ||  __/
-#              ▂▔▀▜██████▙                             |____/ |_| |_| |_||_||_| \___|
-#             ▟██▅▂▝▜█████▙                                     
-#            ▟█████████████▙              __        __          _           __                __
-#           ▟███████████████▙             \ \      / /___  ___ | |_  ___   / _|  ___  _ __   _\ \
-#          ▟█████████████████▙             \ \ /\ / // _ \/ __|| __|/ _ \ | |_  / _ \| `__| (_)| |
-#         ▟███████████████████▙             \ V  V /|  __/\__ \| |_| (_) ||  _||  __/| |     _ | |
-#        ▟█████████▛▀▀▜████████▙             \_/\_/  \___||___/ \__|\___/ |_|   \___||_|    (_)| |
-#       ▟████████▛      ▜███████▙                                                             /_/
-#      ▟█████████        ████████▙ 
-#     ▟██████████        █████▆▅▄▃▂ 
-#    ▟██████████▛        ▜█████████▙ 
-#   ▟██████▀▀▀              ▀▀██████▙ 
-#  ▟███▀▘                       ▝▀███▙ 
-# ▟▛▀                               ▀▜▙ 
-#'
-if [ -e /home/westofer/.nix-profile/etc/profile.d/nix.sh ]; then . /home/westofer/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

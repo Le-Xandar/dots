@@ -12,7 +12,8 @@ call plug#begin('~/.vim/plugged')
 " Appearence {{{ "
 Plug 'itchyny/lightline.vim'		" UI
 Plug 'ap/vim-buftabline'		" buffers to tabline
-Plug 'gruvbox-community/gruvbox'
+Plug 'connorholyday/vim-snazzy'
+Plug 'dylanaraps/wal.vim'
 Plug 'mhinz/vim-startify'
 
 " }}} Appearence "
@@ -219,7 +220,7 @@ nmap <leader>rn <Plug>(coc-rename)
 
 "set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-colorscheme gruvbox
+colorscheme snazzy
 set background=dark
 
 if executable('rg')

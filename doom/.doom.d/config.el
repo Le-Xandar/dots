@@ -171,8 +171,8 @@
        :i "TAB" 'cdlatex-tab
        )
 
- (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode -1)))
- (add-hook 'LaTeX-mode-hook #'auto-fill-mode)
+(add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode -1)))
+(add-hook 'LaTeX-mode-hook #'auto-fill-mode)
 
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case 'keep-prefix)
@@ -202,7 +202,7 @@ nothing happens."
               (add-hook 'after-save-hook 'compile-on-save-start nil t))
     (kill-local-variable 'after-save-hook)))
 
- (add-hook 'helpful-mode-hook #'mixed-pitch-mode)
+(add-hook 'helpful-mode-hook #'mixed-pitch-mode)
 
 (setq-default elfeed-search-filter "@1-week-ago")
 
@@ -249,7 +249,7 @@ nothing happens."
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
- (add-hook 'elfeed-show-mode-hook #'mixed-pitch-mode)
+(add-hook 'elfeed-show-mode-hook #'mixed-pitch-mode)
 
 (when EMACS28+
   (add-hook 'latex-mode-hook #'TeX-latex-mode))
