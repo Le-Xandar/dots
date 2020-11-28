@@ -31,10 +31,4 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
-~/bin/autostart
 if [ -e /home/westofer/.nix-profile/etc/profile.d/nix.sh ]; then . /home/westofer/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
