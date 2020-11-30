@@ -9,9 +9,9 @@ printf 'magit %s ' "$DIR"
 git -C "$DIR" rev-parse 2>/dev/null &&
 # and run emacs,
 {
+  cd "$DIR"
   # if emacs client is not running, start it. (altenate-editor is empty)
-  emacsclient -nc -altenate-editor="" --eval '(magit)' "$@" &>> /tmp/magit.sh.log  ||
-  emacs --execute="(magit)" "$@" &>> /tmp/magit.sh.log
+  emacsclient -nc -altenate-editor="" --eval '(magit)' "$DIR" &>> /tmp/magit.sh.log
 } || 
   # if not a git repo then print an error
   {
