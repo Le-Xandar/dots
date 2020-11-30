@@ -27,3 +27,25 @@ disabled = false
 
 [username]
 style_user = "bold dimmed blue"
+
+[custom.zsh]
+command = "echo 🚀"
+when = """ test "$STARSHIP_SHELL" "==" "zsh" """
+format = "$output"
+
+[custom.bash]
+command = "echo  " 
+when = """ test "$STARSHIP_SHELL" "==" "bash" """
+format = "$output"
+
+[custom.fish]
+command = "echo 🐟 "
+when = """ test "$STARSHIP_SHELL" = "fish" """
+format = "$output"
+
+[custom.ranger]
+command="echo $RANGER_LEVEL"
+when =""" test "  $RANGER_LEVEL" -gt "0" """ 
+format = "[LVL: $output]($style) "
+style="bold red"
+

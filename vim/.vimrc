@@ -218,9 +218,10 @@ set omnifunc=youcompleteme#CompleteFunc
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-set colorcolumn=80
+"set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 colorscheme snazzy
+let g:lightline = {  'colorscheme': 'snazzy'  }
 set background=dark
 
 if executable('rg')
