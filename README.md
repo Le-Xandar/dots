@@ -8,7 +8,7 @@ My ~
 To semilink
 
 ```sh
-stow targe=$HOME nvim vim bspwm picom ....
+stow target=$HOME nvim vim bspwm picom ....
 ```
 
 ## Notes to Future me:
