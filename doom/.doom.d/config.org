@@ -50,8 +50,8 @@ They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 font string. You generally only need these two:
 *** Font
 #+begin_src emacs-lisp
- ;; (setq doom-font (font-spec :family "FiraCode" :size 11 :weight 'semi-light)
- ;;    doom-variable-pitch-font (font-spec :family "sans" :size 11))
+(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "sans" :size 11))
 ;;(setq doom-font (font-spec :family "Open Sans" :size 12 :weight 'regular)
 ;;doom-variable-pitch-font (font-spec :family "sans" :size 12))
 #+end_src
@@ -137,9 +137,39 @@ Global Mixed Pitch  mode!
    `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
    `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
 #+end_src
-*** Agenda
-**** custom commands
+** ROAM
+*** Setup
 #+begin_src emacs-lisp
+(use-package org-roam-server
+  :after org-roam
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8078
+        org-roam-server-export-inline-images t
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20)
+  (defun org-roam-server-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (unless (server-running-p)
+      (org-roam-server-mode 1))
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
+#+end_src
+*** Set Directory
+#+begin_src emacs-lisp
+(setq org-roam-directory "~/Documents/roam/")
+#+end_src
+** Org Directory
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+#+begin_src emacs-lisp
+(setq org-directory "~/Documents/gtd/")
+#+end_src
+
+** Agenda
+*** custom commands
+#+begin_src emacs-lisp :tangle no
 (setq org-agenda-custom-commands
       '(("d" "Today"
          ((tags-todo "SCHEDULED<\"<+1d>\"&PRIORITY=\"A\""
@@ -154,13 +184,86 @@ Global Mixed Pitch  mode!
                        '(or (org-agenda-skip-entry-if 'done)))
                       (org-agenda-overriding-header "Tasks:")))))))
 #+end_src
-** Org Directory
-If you use `org' and don't want your org files in the default location below,
-change `org-directory'. It must be set before org loads!
-#+begin_src emacs-lisp
-(setq org-directory "~/Documents/gtd/")
-#+end_src
+*** Org super agenda mode
+[[https://github.com/alphapapa/org-super-agenda][Documentation]]
+This is the raw example
+#+begin_src emacs-lisp 
+(use-package! org-super-agenda
+  :after org-agenda
+  ;;:custom-face
+  ;;(org-super-agenda-header ((default (:inherit propositum-agenda-heading))))
 
+  :init
+  (setq
+   org-agenda-skip-scheduled-if-done t
+   org-agenda-skip-deadline-if-done t
+   org-agenda-include-deadlines t
+   org-agenda-block-separator nil
+   org-agenda-compact-blocks t
+   org-agenda-start-day nil ;; i.e. today
+   org-agenda-span 1
+   org-agenda-start-on-weekday nil
+   )
+
+  (setq org-agenda-custom-commands
+        '(("c" "Super view"
+           (
+            (agenda "" ((org-agenda-overriding-header "")
+                        (org-super-agenda-groups
+                         '((:name "Today"
+                            :time-grid t
+                            :date today
+                            :order 1)
+                           (:discard (:anything t))
+                           ))))
+            (alltodo "" ((org-agenda-overriding-header "")
+                         (org-super-agenda-groups
+                          '((:log t)
+                            ;; (:name #(" due this week\n" 0 1 (rear-nonsticky t display (raise -0.24) font-lock-face (:family "Material Icons" :height 1.2) face (:family "Material Icons" :height 1.2)))
+                            ;;  :deadline past)
+
+                            (:name "Important"
+                             :priority "A"
+                             :order 1
+                             )
+                            ;; College
+                            (:name "College"
+                             :tag "college"
+                             :order 2
+                             )
+                            ;; (:name "Next"
+                            ;;  :todo "STRT"
+                            ;;  :order 2)
+                            ;; ====schedules====== ;;
+                            (:name "Scheduled Soon"
+                             :scheduled future
+                             :order 6)
+                            (:name "Due Soon"
+                             :deadline future
+                             :order 6)
+                            (:name "Missed"
+                             :scheduled past
+                             :deadline past
+                             :order 7)
+                            ;;==============================;;
+                            (:name "Other Personal Life"
+                             :tag "life"
+                             :order 14
+                             )
+                            (:name "code"
+                             :tag "code"
+                             :order 15
+                             )
+                            (:name "Linux"
+                             :tag "linux"
+                             :order 16
+                             )
+
+                            ;;(:discard (:anything t))
+                            ))))))))
+  :config
+  (org-super-agenda-mode))
+#+end_src
 ** Org-Latex
 *** Latex Image Preview options
 #+begin_src emacs-lisp
@@ -223,141 +326,11 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 (dolist (lang org-babel-lang-list)
   (eval `(lsp-org-babel-enable ,lang)))
 #+end_src
-** ROAM
-*** Setup
-#+begin_src emacs-lisp
-(use-package org-roam-server
-  :after org-roam
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 8078
-        org-roam-server-export-inline-images t
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20)
-  (defun org-roam-server-open ()
-    "Ensure the server is active, then open the roam graph."
-    (interactive)
-    (unless (server-running-p)
-      (org-roam-server-mode 1))
-    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
-#+end_src
-*** Set Directory
-#+begin_src emacs-lisp
-(setq org-roam-directory "~/Documents/roam/")
-#+end_src
 ** Modes
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
+;;(add-hook 'org-agenda-mode-hook 'elegant-agenda-mode)
 #+end_src
-* Languages
-** Rust
-*** Use Rust Analyzer
-#+begin_src emacs-lisp
-(setq rustic-lsp-server 'rust-analyzer)
-#+end_src
-*** Use Racer
-#+BEGIN_SRC bash :tangle no
-rustup toolchain add nightly
-rustup component add rust-src
-cargo +nightly install racer
-#+END_SRC
-#+begin_src emacs-lisp
-(add-hook 'rust-mode-hook #'racer-mode)
-#+end_src
-** Vue
-Use VLS
-https://genehack.blog/2020/08/web-mode-eglot-vetur-vuejs-=-happy/
-#+begin_src emacs-lisp
-(define-derived-mode genehack-vue-mode web-mode "ghVue"
-  "A major mode derived from web-mode, for editing .vue files with LSP support.")
-
-(require 'eglot)
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . genehack-vue-mode))
-(add-hook 'genehack-vue-mode-hook #'eglot-ensure)
-(add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
-#+end_src
-** LaTeX
-**** dd
-#+begin_src emacs-lisp
-(setq +latex-viewers '(zathura pdf-tools evince okular skim sumatrapdf))
-(add-hook 'LaTeX-mode-hook #'mixed-pitch-mode)
-#+end_src
-For use in the new-file template, let’s set out a nice preamble we may want to use. Then let’s bind the content to a function, and define some nice helpers.
-
-
-#+begin_src emacs-lisp
-(setq tec/yas-latex-template-preamble "
-<<latex-nice-preable>>
-")
-
-(defun tec/yas-latex-get-class-choice ()
-  "Prompt user for LaTeX class choice"
-  (setq tec/yas-latex-class-choice (ivy-read "Select document class: " '("article" "scrartcl" "bmc") :def "bmc")))
-
-(defun tec/yas-latex-preamble-if ()
-  "Based on class choice prompt for insertion of default preamble"
-  (if (equal tec/yas-latex-class-choice "bmc") 'nil
-    (eq (read-char-choice "Include default preamble? [Type y/n]" '(?y ?n)) ?y)))
-#+end_src
-****  Cdlatex-tab
-#+begin_src emacs-lisp
-(map!  :map LaTeX-mode-map
-       :i "TAB" 'cdlatex-tab
-       )
-#+end_src
-**** Modes
-#+begin_src emacs-lisp
- (add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode -1)))
- (add-hook 'LaTeX-mode-hook #'auto-fill-mode)
-#+end_src
-
-* Minor Modes
-** company-mode
-*** Use The Same Case
-#+begin_src emacs-lisp
-(setq company-dabbrev-downcase nil)
-(setq company-dabbrev-ignore-case 'keep-prefix)
-#+end_src
-
-*** Set Completion Delay and prefix length
-#+begin_src emacs-lisp
-(setq company-idle-delay 0.2)
-(setq company-minimum-prefix-length 1)
-#+end_src
-*** Backends
-#+begin_src emacs-lisp
-(add-to-list 'company-backends 'company-dabbrev)
-(add-to-list 'company-backends 'company-dabbrev-code)
-(add-to-list 'company-backends 'company-yasnippet)
-(add-to-list 'company-backends 'company-capf)
-(add-to-list 'company-backends 'company-keywords)
-(add-to-list 'company-backends 'company-files)
-#+end_src
-
-** compile-on-save
-Hint: Uses Ctrl-<F5>
-#+begin_src emacs-lisp
-(defun compile-on-save-start ()
-  (let ((buffer (compilation-find-buffer)))
-    (unless (get-buffer-process buffer)
-      (recompile))))
-
-(define-minor-mode compile-on-save-mode
-  "Minor mode to automatically call `recompile' whenever the
-current buffer is saved. When there is ongoing compilation,
-nothing happens."
-  :lighter " CoS"
-  (if compile-on-save-mode
-      (progn  (make-local-variable 'after-save-hook)
-              (add-hook 'after-save-hook 'compile-on-save-start nil t))
-    (kill-local-variable 'after-save-hook)))
-#+end_src
-** Helpful mode
-#+begin_src emacs-lisp
- (add-hook 'helpful-mode-hook #'mixed-pitch-mode)
-#+end_src
-
 
 * Elfeed
 ** Setup
@@ -416,6 +389,8 @@ Closing elfeed forwards to prev buffer
 #+end_src
 
 *** elfeed-view-mpv
+(add-hook 'LaTeX-mode-hook (lambda () (yas-minor-mode -1)))
+(add-hook 'LaTeX-mode-hook #'auto-fill-mode)
 Run video in mpv
 #+begin_src emacs-lisp
 

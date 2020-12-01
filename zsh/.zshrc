@@ -148,4 +148,5 @@ exit_zsh() { exit }
 zle -N exit_zsh
 bindkey '^D' exit_zsh
 
-pfetch
+#  z - jump around
+source "$HOME"/bin/progs/z

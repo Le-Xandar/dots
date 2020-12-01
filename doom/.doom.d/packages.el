@@ -61,10 +61,8 @@
 ;  :recipe (:host github :repo "username/repo"))
 
 ;; https://github.com/justinbarclay/elegant-agenda-mode
-(package! elegant-agenda-mode
-  :recipe (:host github :repo "justinbarclay/elegant-agenda-mode"
-          ;; :files ("elegant-agenda-mode.el")
-           ))
+
+
 (package! elegant-emacs
   :recipe (:host github :repo "rougier/elegant-emacs"
            :files ("elegant-dark-theme.el"
@@ -78,6 +76,15 @@
 (unpin! org-roam org-roam-server)
 (package! company-org-roam
   :recipe (:host github :repo "org-roam/company-org-roam"))
+
+(package! elegant-agenda-mode
+  :recipe (:host github :repo "justinbarclay/elegant-agenda-mode"
+          ;; :files ("elegant-agenda-mode.el")
+           ))
+
+;;; Agenda
+(package! org-super-agenda)
+
 
 
 

@@ -18,6 +18,12 @@ stow target=$HOME nvim vim bspwm picom ....
 - oh-my-zsh requires cloning
 - snazzy is your color scheme
 
+```sh
+# Aur
+tdrop-git
+
+```
+
 <!-- cpupower-gui -->
 <!-- fswatch -->
 <!-- notification-daemon -->

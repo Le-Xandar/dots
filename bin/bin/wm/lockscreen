@@ -1,6 +1,6 @@
 #!/bin/bash
 #img=$(mktemp /tmp/XXXXXXXXXX.png)
-img="$HOME/Pictures/wallpapers/japanese-road1080.png"
+img="$HOME/Pictures/gnu/text-logo-Linux-circle-brand-Free-Software-GNU-screenshot-computer-wallpaper-font-51039.png"
 
 # Take a screenshot of current desktop
 #import -window root $img 

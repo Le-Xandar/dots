@@ -35,7 +35,7 @@ format = "$output"
 
 [custom.bash]
 command = "echo  " 
-when = """ test "$STARSHIP_SHELL" "==" "bash" """
+when = ' [ "$STARSHIP_SHELL" == "bash" ] '
 format = "$output"
 
 [custom.fish]
