@@ -61,7 +61,7 @@ available. You can either set src_elisp{`doom-theme'} or manually load a theme
 with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
                                                                           doom-theme 'doom-one)}
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-one)
 #+end_src
 *** Line Numbers
 #+begin_src emacs-lisp
@@ -106,7 +106,7 @@ Use Icons
 ** Modes
 Global Mixed Pitch  mode!
 #+begin_src emacs-lisp
-(add-hook 'text-mode-hook 'mixed-pitch-mode)
+;;(add-hook 'text-mode-hook 'mixed-pitch-mode)
 #+end_src
 * Org-Mode
 ** UI
@@ -168,7 +168,7 @@ change `org-directory'. It must be set before org loads!
 #+end_src
 
 ** Agenda
-*** custom commands
+*** custom commands [Inactive]
 #+begin_src emacs-lisp :tangle no
 (setq org-agenda-custom-commands
       '(("d" "Today"
@@ -218,10 +218,7 @@ This is the raw example
                            ))))
             (alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
-                          '((:log t)
-                            ;; (:name #(" due this week\n" 0 1 (rear-nonsticky t display (raise -0.24) font-lock-face (:family "Material Icons" :height 1.2) face (:family "Material Icons" :height 1.2)))
-                            ;;  :deadline past)
-
+                          '(;;(:log t)
                             (:name "Important"
                              :priority "A"
                              :order 1
@@ -235,8 +232,12 @@ This is the raw example
                             ;;  :todo "STRT"
                             ;;  :order 2)
                             ;; ====schedules====== ;;
+                            ;; (:name "habits"
+                            ;;  :and (:habit t :scheduled today )
+                            ;;  :order 13
+                            ;;  )
                             (:name "Scheduled Soon"
-                             :scheduled future
+                             :and (:scheduled future :not (:habit t))
                              :order 6)
                             (:name "Due Soon"
                              :deadline future
@@ -259,10 +260,14 @@ This is the raw example
                              :order 16
                              )
 
-                            ;;(:discard (:anything t))
+                            (:discard (:habit t))
                             ))))))))
   :config
   (org-super-agenda-mode))
+#+end_src
+*** UI
+#+begin_src emacs-lisp :tangle yes
+(add-hook 'org-agenda-mode-hook 'elegant-agenda-mode)
 #+end_src
 ** Org-Latex
 *** Latex Image Preview options
@@ -329,7 +334,7 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 ** Modes
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
-;;(add-hook 'org-agenda-mode-hook 'elegant-agenda-mode)
+(setq geiser-default-implementation  'guile)
 #+end_src
 
 * Elfeed
@@ -421,6 +426,7 @@ Run video in mpv
 #+begin_src emacs-lisp
  (add-hook 'elfeed-show-mode-hook #'mixed-pitch-mode)
 #+end_src
+* Languages
 * Fixes
 In case of Emacs28,
 #+begin_src emacs-lisp

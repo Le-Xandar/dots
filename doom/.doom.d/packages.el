@@ -79,7 +79,7 @@
 
 (package! elegant-agenda-mode
   :recipe (:host github :repo "justinbarclay/elegant-agenda-mode"
-          ;; :files ("elegant-agenda-mode.el")
+            ;; :files ("elegant-agenda-mode.el")
            ))
 
 ;;; Agenda
