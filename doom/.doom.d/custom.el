@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#282c34" "#ff5d38" "#98be65" "#bcd42a" "#51afef" "#c678dd" "#46D9FF" "#ede0ce"])
+   ["#242730" "#ff5d38" "#98be65" "#bcd42a" "#51afef" "#c678dd" "#46D9FF" "#ede0ce"])
  '(elfeed-feeds
    '("https://andreyorst.gitlab.io/feed.xml" "https://ideaman924.com/feed.xml" "https://brettgilio.ml/rss.xml" "https://videos.lukesmith.xyz/feeds/videos.xml?videoChannelId=2"))
  '(fci-rule-color "#5B6268")
@@ -12,14 +12,11 @@
  '(jdee-db-requested-breakpoint-face-colors (cons "#2b2a27" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#2b2a27" "#3f444a"))
  '(objed-cursor-color "#ff5d38")
- '(package-selected-packages '(ox-json outline-magic))
+ '(package-selected-packages '(deft ox-json outline-magic))
  '(pdf-view-midnight-colors (cons "#ede0ce" "#2b2a27"))
  '(rustic-ansi-faces
    ["#2b2a27" "#ff5d38" "#98be65" "#bcd42a" "#51afef" "#c678dd" "#46D9FF" "#ede0ce"])
- '(safe-local-variable-values
-   '((eval org-content 1)
-     (eval org-content 2)
-     (eval org-content 3)))
+ '(safe-local-variable-values '((eval org-content 2)))
  '(vc-annotate-background "#2b2a27")
  '(vc-annotate-color-map
    (list

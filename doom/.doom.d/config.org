@@ -61,7 +61,7 @@ available. You can either set src_elisp{`doom-theme'} or manually load a theme
 with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
                                                                           doom-theme 'doom-one)}
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-vibrant)
 #+end_src
 *** Line Numbers
 #+begin_src emacs-lisp
@@ -94,6 +94,18 @@ Use Icons
 #+begin_src emacs-lisp
 (map! "C-h" 'backward-delete-char-untabify)
 #+end_src
+**** ediff init and example
+#+begin_src emacs-lisp
+(defun doom/ediff-init-and-example ()
+  "ediff the current `init.el' with the example in doom-emacs-dir"
+  (interactive)
+  (ediff-files (concat doom-private-dir "init.el")
+               (concat doom-emacs-dir "init.example.el")))
+
+(define-key! help-map
+  "di"   #'doom/ediff-init-and-example
+  )
+#+end_src
 ** Fill column
 #+begin_src emacs-lisp
 (setq-default fill-column 80)
@@ -108,6 +120,7 @@ Global Mixed Pitch  mode!
 #+begin_src emacs-lisp
 ;;(add-hook 'text-mode-hook 'mixed-pitch-mode)
 #+end_src
+
 * Org-Mode
 ** UI
 *** hide the emphasis markup (e.g. /.../ for italics, *...* for bold, etc.):
@@ -159,6 +172,40 @@ Global Mixed Pitch  mode!
 *** Set Directory
 #+begin_src emacs-lisp
 (setq org-roam-directory "~/Documents/roam/")
+#+end_src
+*** Deft
+#+begin_src emacs-lisp
+(setq deft-directory "~/Documents/roam")
+(setq deft-extensions '("md" "tex" "org"))
+(setq deft-recursive t)
+#+end_src
+*** Dailies Template
+\#+title: 2020-12-17
+\#+ROAM_TAGS: dailies
+\#+Startup: showall
+#+begin_src emacs-lisp
+    (setq org-roam-dailies-capture-templates
+          (let ((head "#+title: %<%Y-%m-%d (%A)>\n#+startup: showall\n#+ROAM_TAGS: dailies \n* Do Today\n* Evening Checkin\n* Journal :journal: \n* carried to [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]"))
+            `(("j" "journal" entry
+               #'org-roam-capture--get-point
+               "* %<%H:%M> %?"
+               :file-name "daily/%<%Y-%m-%d>"
+               :head ,head
+               :olp ("Journal"))
+              ("t" "do today" item
+               #'org-roam-capture--get-point
+               "[ ] %(princ as/agenda-captured-link)"
+               :file-name "daily/%<%Y-%m-%d>"
+               :head ,head
+               :olp ("Do Today")
+               :immediate-finish t)
+              ("m" "maybe do today" item
+               #'org-roam-capture--get-point
+               "[ ] %(princ as/agenda-captured-link)"
+               :file-name "daily/%<%Y-%m-%d>"
+               :head ,head
+               :olp ("Maybe Do Today")
+               :immediate-finish t))))
 #+end_src
 ** Org Directory
 If you use `org' and don't want your org files in the default location below,
@@ -336,6 +383,9 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
 (setq geiser-default-implementation  'guile)
 #+end_src
+
+Auto update Time Stamp.
+add to the first eight lines of the file  `Time-stamp: <>`
 
 * Elfeed
 ** Setup

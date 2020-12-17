@@ -122,7 +122,7 @@ super + {p,n}
    bspc node -g {sticky,hidden,}
 
 # unhide
-super + ctrl + n
+super + shift + n
   bspc node $(bspc query -N -n .hidden.local | tail -n1) -g hidden=off
 
 # set the window state

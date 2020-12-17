@@ -1,4 +1,4 @@
-syntax on
+syntax enable
 
 "install plug-vim
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -17,15 +17,17 @@ Plug 'dylanaraps/wal.vim'
 Plug 'mhinz/vim-startify'
 
 " }}} Appearence "
-
+" Side bars{{{
 Plug 'scrooloose/nerdtree'		" NERD Tree
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " Completion as in vscode
 Plug 'Xuyuanp/nerdtree-git-plugin' 	" show git status in Nerd tree
+Plug 'mbbill/undotree'
+Plug  'preservim/tagbar'
+" }}}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " Completion as in vscode
 Plug 'preservim/nerdcommenter' " comments code
 Plug 'junegunn/goyo.vim' " zen mode
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'vim-utils/vim-man'
-Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot' "all lang packs :)
 Plug 'qpkorr/vim-bufkill'
 "JS {{{
@@ -46,6 +48,9 @@ Plug 'albanm/vuetify-vim'
 ": Latex{{{
 Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+"}}}
+"Rust {{{
+Plug 'rust-lang/rust.vim'
 
 "}}}
 " Markdown {{{
@@ -145,8 +150,9 @@ nnoremap <leader>ot :split <CR> :wincmd j <CR>  :term <CR> :res 15 <CR> " open t
 nnoremap <leader>oT :term<CR>                                           " open terminal in this buffer
 " }}}
 "
-"Code {{{
+"Function keys {{{
 autocmd filetype tex nnoremap <F5> :LLPStartPreview<CR>  "compile
+nnoremap <F8> :TagbarToggle<CR>
 " }}}
 
 " Other {{{
@@ -242,4 +248,7 @@ set conceallevel=1
 let g:tex_conceal='abdmgs'
 let g:livepreview_previewer = "zathura"
 let g:livepreview_cursorhold_recompile = 1
+" }}}
+" Rust {{{
+let g:rustfmt_autosave = 1
 " }}}

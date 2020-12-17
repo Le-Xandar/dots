@@ -1,3 +1,0 @@
-#!/bin/sh
-fusermount -u "$HOME/Phone"
-/usr/bin/rclone mount phone: "$HOME/Phone"  --vfs-cache-mode full
