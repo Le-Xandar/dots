@@ -19,11 +19,12 @@ feh --bg-fill "$(cat ~/bin/config/wallpaper)" &
 #feh --bg-scale ~/Pictures/wallpapers/morning-wallpaper-cut1.jpg ~/Pictures/wallpapers/morning-wallpaper.-cut2.jpg # dual monitor 
 #Pictures/wander1.png
 
+dbus-launch emacs --daemon &
 #other
+sleep 4
 flameshot &
 optimus-manager-qt &
-dbus-launch emacs --daemon &
-uim-toolbar-gtk3-systray & #uim Japanses Input
+#uim-toolbar-gtk3-systray & #uim Japanses Input
 
 #if bspwm
 
@@ -31,5 +32,6 @@ picom --config "$HOME/.config/picom.conf" &
 
 thunderbird &
 keepassxc &
-ibus-daemon -drx &
+#ibus-daemon -drx &
 syncthing --no-browser &
+alarm-clock-applet --hidden &

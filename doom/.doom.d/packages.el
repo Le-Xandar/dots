@@ -55,7 +55,7 @@
 (package! elpher)
 (package! eglot)
 
-(package! ox-json);; org to json
+;; (package! ox-json);; org to json
 
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
@@ -84,9 +84,6 @@
 
 ;;; Agenda
 (package! org-super-agenda)
-
-
-
 
 ;; (package! org-roam-server)
 

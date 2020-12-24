@@ -29,6 +29,9 @@ XF86AudioPrev
 {XF86Mail,XF86HomePage}
   {thunderbird, brave||firefox}
 
+# Screenshot, with shift copy to clipboard
+{_,shift} Print
+   flameshot {gui ,full --clipboard}
 
 #==================Progs======================
 #super + space
@@ -54,12 +57,12 @@ super + e
 
 # show poly-bar
 super + b
-  polybar-msg cmd show; bspc config -m focused bottom_padding 26
+  polybar-msg cmd show; bspc config -m focused top_padding 21
   #polybar-msg cmd hide; bspc config -m focused bottom_padding $((`bspc config -m focused top_padding` - 27 ))
 
 # hide poly-bar
 super + shift + b
-  polybar-msg cmd hide; bspc config -m focused bottom_padding 0
+  polybar-msg cmd hide; bspc config -m focused top_padding 0
   #polybar-msg cmd show; bspc config -m focused bottom_padding $((`bspc config -m focused top_padding` + 27 ))
 
 # scratchpad tdrop
@@ -84,15 +87,15 @@ super + {Pause}
 #================WM=============================
 
 # Show Help
-super + slash
-	~/bin/wm/sxhkd-help
+#super + slash
+	#~/bin/wm/sxhkd-help
 
 # quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }q
+super + {shift, ctrl } + q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout

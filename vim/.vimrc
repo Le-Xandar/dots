@@ -63,6 +63,7 @@ Plug 'airblade/vim-gitgutter'
 " }}}
 
 Plug 'ryanoasis/vim-devicons' " icons
+Plug 'ap/vim-css-color'
 
 call plug#end()
 

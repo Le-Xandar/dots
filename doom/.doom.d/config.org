@@ -36,6 +36,10 @@ clients, file templates and snippets.
       user-mail-address "WestoferRaymond@gmail.com")
 
 #+end_src
+** Start as a server
+#+begin_src emacs-lisp
+(server-start)
+#+end_src
 **  UI
 
 Doom exposes five (optional) variables for controlling fonts in Doom. Here
@@ -180,12 +184,22 @@ Global Mixed Pitch  mode!
 (setq deft-recursive t)
 #+end_src
 *** Dailies Template
-\#+title: 2020-12-17
-\#+ROAM_TAGS: dailies
-\#+Startup: showall
+me is Smurt
 #+begin_src emacs-lisp
     (setq org-roam-dailies-capture-templates
-          (let ((head "#+title: %<%Y-%m-%d (%A)>\n#+startup: showall\n#+ROAM_TAGS: dailies \n* Do Today\n* Evening Checkin\n* Journal :journal: \n* carried to [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]"))
+          (let ((head "\
+#+title: %<%Y-%m-%d (%A)>\
+\n#+startup: showall\
+\n#+ROAM_TAGS: dailies\
+ \n* Do Today [/][%]\
+ \n** On My Mind\
+ \n** Motivation\
+ \n* Evening Checkin\
+ \n** Daily Score\
+ \n** Today I Learned\
+ \n** One Thing Achieved\
+ \n* Journal :journal:\
+ \n* carried to [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]"))
             `(("j" "journal" entry
                #'org-roam-capture--get-point
                "* %<%H:%M> %?"
@@ -209,7 +223,7 @@ Global Mixed Pitch  mode!
 #+end_src
 ** Org Directory
 If you use `org' and don't want your org files in the default location below,
-change `org-directory'. It must be set before org loads!
+change `org-directory'. It must be set before org loads!, end it with a slash "/"
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/gtd/")
 #+end_src
@@ -383,10 +397,20 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
 (setq geiser-default-implementation  'guile)
 #+end_src
-
-Auto update Time Stamp.
-add to the first eight lines of the file  `Time-stamp: <>`
-
+** org-linkz
+[[https://github.com/p-kolacz/org-linkz][p-kolacz/org-linkz]]
+#+begin_src emacs-lisp
+(setq org-html-validation-link nil)  ;; removes validation link from exported html file
+(require 'org-protocol)
+(setq org-capture-templates
+        '(
+          ("o" "Link capture" entry
+           (file+headline (concat org-roam-directory "internet/Linkz.org") "INBOX")
+           "* %a %U"
+           :immediate-finish t)
+))
+(setq org-protocol-default-template-key "o")
+#+end_src
 * Elfeed
 ** Setup
 *** Use Filter:

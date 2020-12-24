@@ -1,14 +1,11 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 # Import additional configuration files
-import:
+# import:
 #  - /path/to/alacritty.yml
 #  - ./shades-of-purple.yml
-  - /home/westofer/.config/alacritty/snazzy.yml
 #   - /home/westofer/.config/alacritty/shades-of-purple.yml
-
 #fps: false
-
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
@@ -29,7 +26,6 @@ window:
   #dimensions:
   #  columns: 0
   #  lines: 0
-
   # Window position (changes require restart)
   #
   # Specified in number of pixels.
@@ -37,7 +33,6 @@ window:
   #position:
   #  x: 0
   #  y: 0
-
   # Window padding (changes require restart)
   #
   # Blank space added around the window in pixels. This padding is scaled
@@ -48,7 +43,6 @@ window:
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
-
   # Window decorations
   #
   # Values for `decorations`:
@@ -59,7 +53,6 @@ window:
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
   #decorations: full
-
   # Startup Mode (changes require restart)
   #
   # Values for `startup_mode`:
@@ -70,31 +63,25 @@ window:
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
   #startup_mode: Windowed
-
   # Window title
   #title: Alacritty
-
   # Allow terminal applications to change Alacritty's window title.
   #dynamic_title: true
-
   # Window class (Linux/BSD only):
   #class:
-    # Application instance name
-    #instance: Alacritty
-    # General application class
-    #general: Alacritty
-
+  # Application instance name
+  #instance: Alacritty
+  # General application class
+  #general: Alacritty
   # GTK theme variant (Linux/BSD only)
   #
   # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
   # Set this to `None` to use the default theme variant.
   #gtk_theme_variant: None
-
-#scrolling:
+  #scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
   #history: 10000
-
   # Scrolling distance multiplier.
   #multiplier: 3
 
@@ -108,10 +95,10 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: FiraCode
+      family: Fira Code
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+      style: Regular
 
   # Bold font face
   bold:
@@ -120,7 +107,6 @@ font:
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
     #family: monospace
-
     # The `style` can be specified to pick a specific face.
     style: Bold
 
@@ -131,7 +117,6 @@ font:
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     family: monospace
-
     # The `style` can be specified to pick a specific face.
     #style: Italic
 
@@ -142,7 +127,6 @@ font:
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
     family: monospace
-
     # The `style` can be specified to pick a specific face.
     #style: Bold Italic
 
@@ -154,37 +138,30 @@ font:
   #offset:
   #  x: 0
   #  y: 0
-
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
   # increasing `y` moves the glyph upward.
   #glyph_offset:
   #  x: 0
   #  y: 0
-
   # Thin stroke font rendering (macOS only)
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`.
   #use_thin_strokes: true
-
   # Choose whether to enable ligature (Currently only in Linux, may work in macOS)
   # by default it's true (enabled)
   #ligature: true
-
-# If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
-
-# Colors 
-
-    # Bright and dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #dim_foreground: '#828482'
-    #bright_foreground: '#eaeaea'
-
+  # If `true`, bold text is drawn using the bright color variants.
+  #draw_bold_text_with_bright_colors: false
+  # Colors
+  # Bright and dim foreground colors
+  #
+  # The dimmed foreground color is calculated automatically if it is not present.
+  # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
+  # is `false`, the normal foreground color will be used.
+  #dim_foreground: '#828482'
+  #bright_foreground: '#eaeaea'
   # Cursor colors
   #
   # Colors which should be used to draw the terminal cursor.
@@ -194,7 +171,6 @@ font:
   #cursor:
   #  text: CellBackground
   #  cursor: CellForeground
-
   # Vi mode cursor colors
   #
   # Colors for the cursor when the vi mode is active.
@@ -204,7 +180,6 @@ font:
   #vi_mode_cursor:
   #  text: CellBackground
   #  cursor: CellForeground
-
   # Selection colors
   #
   # Colors which should be used to draw the selection area.
@@ -214,27 +189,23 @@ font:
   #selection:
   #  text: CellBackground
   #  background: CellForeground
-
   # Search colors
   #
   # Colors used for the search bar and match highlighting.
   #search:
-    # Allowed values are CellForeground and CellBackground, which reference the
-    # affected cell, or hexadecimal colors like #ff00ff.
-    #matches:
-    #  foreground: '#000000'
-    #  background: '#ffffff'
-
-    #bar:
-    #  background: '#c5c8c6'
-    #  foreground: '#1d1f21'
-
+  # Allowed values are CellForeground and CellBackground, which reference the
+  # affected cell, or hexadecimal colors like #ff00ff.
+  #matches:
+  #  foreground: '#000000'
+  #  background: '#ffffff'
+  #bar:
+  #  background: '#c5c8c6'
+  #  foreground: '#1d1f21'
   draw_bold_text_with_bright_colors: true
-
-# Bell
-#
-# The bell is rung every time the BEL control character is received.
-#bell:
+  # Bell
+  #
+  # The bell is rung every time the BEL control character is received.
+  #bell:
   # Visual Bell Animation
   #
   # Animation effect for flashing the screen when the visual bell is rung.
@@ -251,14 +222,11 @@ font:
   #   - EaseOutCirc
   #   - Linear
   #animation: EaseOutExpo
-
   # Duration of the visual bell flash. A `duration` of `0` will disable the
   # visual bell animation.
   #duration: 0
-
   # Visual bell animation color.
   #color: '#ffffff'
-
   # Bell Command
   #
   # This program is executed whenever the bell is rung.
@@ -279,40 +247,33 @@ font:
 background_opacity: 1.0
 
 #selection:
-  # This string contains all characters that are used as separators for "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
-
+# This string contains all characters that are used as separators for "semantic words" in Alacritty.
+#semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+# When set to `true`, selected text will be copied to the primary clipboard.
+#save_to_clipboard: false
 #cursor:
-  # Cursor style
-  #
-  # Values for `style`:
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
-  #style: Block
-
-  # Vi mode cursor style
-  #
-  # If the vi mode cursor style is `None` or not specified, it will fall back to
-  # the style of the active value of the normal cursor.
-  #
-  # See `cursor.style` for available options.
-  #vi_mode_style: None
-
-  # If this is `true`, the cursor will be rendered as a hollow box when the
-  # window is not focused.
-  #unfocused_hollow: true
-
-  # Thickness of the cursor relative to the cell width as floating point number
-  # from `0.0` to `1.0`.
-  #thickness: 0.15
-
+# Cursor style
+#
+# Values for `style`:
+#   - ▇ Block
+#   - _ Underline
+#   - | Beam
+#style: Block
+# Vi mode cursor style
+#
+# If the vi mode cursor style is `None` or not specified, it will fall back to
+# the style of the active value of the normal cursor.
+#
+# See `cursor.style` for available options.
+#vi_mode_style: None
+# If this is `true`, the cursor will be rendered as a hollow box when the
+# window is not focused.
+#unfocused_hollow: true
+# Thickness of the cursor relative to the cell width as floating point number
+# from `0.0` to `1.0`.
+#thickness: 0.15
 # Live config reload (changes require restart)
 #live_config_reload: true
-
 # Shell
 #
 # You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
@@ -324,29 +285,25 @@ background_opacity: 1.0
 #   - (Windows) powershell
 shell:
   program: /usr/bin/zsh
-#  args:
-#    - --login
-
-# Startup directory
-#
-# Directory the shell is started in. If this is unset, or `None`, the working
-# directory of the parent process will be used.
-#working_directory: None
-
-# WinPTY backend (Windows only)
-#
-# Alacritty defaults to using the newer ConPTY backend if it is available,
-# since it resolves a lot of bugs and is quite a bit faster. If it is not
-# available, the WinPTY backend will be used instead.
-#
-# Setting this option to `true` makes Alacritty use the legacy WinPTY backend,
-# even if the ConPTY backend is available.
-#winpty_backend: false
-
-# Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
-
-#mouse:
+  #  args:
+  #    - --login
+  # Startup directory
+  #
+  # Directory the shell is started in. If this is unset, or `None`, the working
+  # directory of the parent process will be used.
+  #working_directory: None
+  # WinPTY backend (Windows only)
+  #
+  # Alacritty defaults to using the newer ConPTY backend if it is available,
+  # since it resolves a lot of bugs and is quite a bit faster. If it is not
+  # available, the WinPTY backend will be used instead.
+  #
+  # Setting this option to `true` makes Alacritty use the legacy WinPTY backend,
+  # even if the ConPTY backend is available.
+  #winpty_backend: false
+  # Send ESC (\x1b) before characters when alt is pressed.
+  #alt_send_esc: true
+  #mouse:
   # Click settings
   #
   # The `double_click` and `triple_click` settings control the time
@@ -354,10 +311,8 @@ shell:
   # or triple click.
   #double_click: { threshold: 300 }
   #triple_click: { threshold: 300 }
-
   # If this is `true`, the cursor is temporarily hidden when typing.
   #hide_when_typing: false
-
   url:
     # URL launcher
     #
@@ -373,13 +328,11 @@ shell:
     launcher:
       program: xdg-open
     #  args: []
-
     # URL modifiers
     #
     # These are the modifiers that need to be held down for opening URLs when clicking
     # on them. The available modifiers are documented in the key binding section.
     #modifiers: None
-
 # Mouse bindings
 #
 # Mouse bindings are specified as a list of objects, much like the key
@@ -404,7 +357,6 @@ shell:
 # - `mods` (see key bindings)
 #mouse_bindings:
 #  - { mouse: Middle, action: PasteSelection }
-
 # Key bindings
 #
 # Key bindings are specified as a list of objects. For example, this is the
@@ -595,7 +547,6 @@ key_bindings:
   #- { key: PageDown,  mods: Shift,   mode: ~Alt, action: ScrollPageDown }
   #- { key: Home,      mods: Shift,   mode: ~Alt, action: ScrollToTop,   }
   #- { key: End,       mods: Shift,   mode: ~Alt, action: ScrollToBottom }
-
   # Vi Mode
   #- { key: Space,  mods: Shift|Control, mode: Vi, action: ScrollToBottom          }
   #- { key: Space,  mods: Shift|Control,           action: ToggleViMode            }
@@ -644,7 +595,6 @@ key_bindings:
   #- { key: Slash,  mods: Shift,         mode: Vi, action: SearchBackward          }
   #- { key: N,                           mode: Vi, action: SearchNext              }
   #- { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
-
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift,           action: Paste            }
   #- { key: C,        mods: Control|Shift,           action: Copy             }
@@ -657,10 +607,8 @@ key_bindings:
   #- { key: Add,      mods: Control,                 action: IncreaseFontSize }
   #- { key: Subtract, mods: Control,                 action: DecreaseFontSize }
   #- { key: Minus,    mods: Control,                 action: DecreaseFontSize }
-
   # (Windows only)
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
-
   # (macOS only)
   #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
   #- { key: Key0,   mods: Command,            action: ResetFontSize    }
@@ -675,18 +623,19 @@ key_bindings:
   #- { key: M,      mods: Command,            action: Minimize         }
   #- { key: Q,      mods: Command,            action: Quit             }
   #- { key: W,      mods: Command,            action: Quit             }
-  - { key: Return,      mods: Control|Super,            action: SpawnNewInstance }
+  - {
+      key: Return,
+      mods: Control|Super,
+      action: SpawnNewInstance
+    }
   #- { key: F,      mods: Command|Control,    action: ToggleFullscreen }
   #- { key: F,      mods: Command,            action: SearchForward    }
   #- { key: B,      mods: Command,            action: SearchBackward   }
-
-#debug:
+  #debug:
   # Display the time it takes to redraw each frame.
   #render_timer: false
-
   # Keep the log file after quitting Alacritty.
   #persistent_logging: false
-
   # Log level
   #
   # Values for `log_level`:
@@ -697,6 +646,32 @@ key_bindings:
   #   - Debug
   #   - Trace
   #log_level: Warn
-
   # Print all received window events.
   #print_events: false
+colors:
+  # Default colors
+  primary:
+    background: '#282a36'
+    foreground: '#eff0eb'
+
+  # Normal colors
+  normal:
+    black: '#282a36'
+    red: '#ff5c57'
+    green: '#5af78e'
+    yellow: '#f3f99d'
+    blue: '#57c7ff'
+    magenta: '#ff6ac1'
+    cyan: '#9aedfe'
+    white: '#f1f1f0'
+
+  # Bright colors
+  bright:
+    black: '#686868'
+    red: '#ff5c57'
+    green: '#5af78e'
+    yellow: '#f3f99d'
+    blue: '#57c7ff'
+    magenta: '#ff6ac1'
+    cyan: '#9aedfe'
+    white: '#f1f1f0'
