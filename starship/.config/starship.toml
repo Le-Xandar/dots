@@ -46,7 +46,7 @@ format = "$output"
 [custom.ranger]
 command="echo $RANGER_LEVEL"
 when =""" test "  $RANGER_LEVEL" -gt "0" """ 
-format = "[LVL: $output]($style) "
+format = "[ R:LVL: $output]($style) "
 style="bold red"
 
 [custom.giturl]

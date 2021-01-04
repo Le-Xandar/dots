@@ -7,7 +7,7 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
   light -U 10 || xbacklight -dec 10
 
-#Decrease/Increase Volume
+#Decrease/Increase,mute Volume
 {XF86AudioLowerVolume,XF86AudioRaiseVolume,XF86AudioMute}
   amixer -q sset 'Master' {2%-, 2%+,0}
 

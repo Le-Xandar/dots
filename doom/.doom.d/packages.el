@@ -63,13 +63,13 @@
 ;; https://github.com/justinbarclay/elegant-agenda-mode
 
 
-(package! elegant-emacs
-  :recipe (:host github :repo "rougier/elegant-emacs"
-           :files ("elegant-dark-theme.el"
-                   "elegant-light-theme.el"
-                   "elegance.el"
-                   "sanity.el" )
-           ))
+;;(package! elegant-emacs
+  ;;:recipe (:host github :repo "rougier/elegant-emacs"
+           ;;:files ("elegant-dark-theme.el"
+                   ;;"elegant-light-theme.el"
+                        ;;"elegance.el"
+                   ;;"sanity.el" )
+           ;;))
 
 
 ;; ORG ROAM
@@ -88,3 +88,9 @@
 ;; (package! org-roam-server)
 
 (package! mixed-pitch)
+
+;; This is for image previews from urls in org mode
+
+(package! org-yt
+  :recipe (:host github :repo  "TobiasZawada/org-yt"
+           :files ("org-yt.el" )))

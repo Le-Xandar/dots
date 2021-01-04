@@ -21,7 +21,6 @@ feh --bg-fill "$(cat ~/bin/config/wallpaper)" &
 
 dbus-launch emacs --daemon &
 #other
-sleep 4
 flameshot &
 optimus-manager-qt &
 #uim-toolbar-gtk3-systray & #uim Japanses Input
@@ -34,4 +33,3 @@ thunderbird &
 keepassxc &
 #ibus-daemon -drx &
 syncthing --no-browser &
-alarm-clock-applet --hidden &

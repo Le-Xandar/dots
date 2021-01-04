@@ -46,14 +46,6 @@
 
 " General settings                                             {{{1
 " -----------------------------------------------------------------
-
-" Use home row letters for hints instead of numbers
-set hintkeys=asdfg;lkjh
-
-" leader is space !
-map " " <Leader>
-
-" tell the bell to go beep itself!
 set novisualbell
 "
 " turn off the freakin' bell
@@ -74,8 +66,6 @@ set maxitems=35
 " use a different color scheme
 colorscheme solarized-light
 
-" set editor to nvim on a floating alacritty terminal
-set editor='alacritty --class=Floating,Floating -e nvim'
 
 " set a stupid title
 set titlestring="oh hai!"
@@ -92,6 +82,9 @@ set activate+=diverted
 " Searching                                                    {{{1
 " -----------------------------------------------------------------
 
+" Use home row letters for hints instead of numbers
+set hintkeys=asdfg;lkjh
+
 " find as you type
 set incfind
 " highlight the terms
@@ -104,11 +97,15 @@ map <silent> coh :set hlfind!<CR>
 " set defsearch=google
 
 " Mappings                                                     {{{1
+" leader is space !
+map " " <Leader>
 "
 " bring back/hide portions of the GUI
 map -builtin cog :set guioptions!=mBT<CR>
 map -builtin cob :toolbartoggle Bookmarks Toolbar<CR>
 map -builtin cot :set showtabline!=never,always<CR>
+
+map -builtin <Leader> :tabs<space>
 
 " temporary workaround for copy paste in text boxes
 " https://code.google.com/p/dactyl/issues/detail?id=517
@@ -120,11 +117,12 @@ imap -builtin <M-x> <pass>
 " Also assign ctrl + e as that is easier to type, and what I have
 " set up in thunderbird :)
 imap -builtin <C-e> <C-i>
+imap -builtin jk <Esc>
 
 " Clearly doesn't invoke anymore, this forces it
 map -builtin <Leader>md :emenu Tools.Downloads<CR>
 map -builtin <Leader>ma :emenu Tools.Add-ons<CR>
-map -builtin <Leader>mp :emenu Tools.Prefrences<CR>
+map -builtin <Leader>mp :emenu Tools.Preferences<CR>
 
 
 " Never wanted to go back when I hit delete, now it won't
@@ -135,6 +133,23 @@ nmap -builtin <C-a> <nop>
 
 " Go into pass through mode when invoking group tabs
 "nmap -builtin <M-S-E> <C-z><M-S-E>
+" Text/Typing                                                       {{{1
+" -----------------------------------------------------------------
+
+" set editor to nvim on a floating alacritty terminal
+set editor='alacritty --class=Floating,Floating -e nvim -c "set filetype=markdown"'
+
+set insertmode
+
+" tmap -builtin  jk <Esc><Esc>
+" imap jk <C-T>
+
+" tmap -builtin  jk <Esc><Esc>
+imap -builtin jk <Esc>
+" map -builtin gi gi
+cmap -builtin jk <Esc>
+
+" tell the bell to go beep itself!
 " Navigation {{{1
 " ----------------------------------------------------------------
 "
@@ -200,7 +215,8 @@ map -builtin <silent> bp :open bkm-plex<CR>
 
 " pass keys in the folowing websites
 :autocmd LocationChange 'https://ozencb.github.io/tilde-enhanced/*' :normal! <C-z>
-:autocmd LocationChange 'https://www.youtube.com/*' :normal! <C-z>
+" :autocmd LocationChange 'https://www.youtube.com/watch*' :normal! <C-z>
+:autocmd LocationChange 'https://www.wanikani.com/lesson*' :normal! <C-z>
 
 
 " Interface Tweaks                                             {{{1

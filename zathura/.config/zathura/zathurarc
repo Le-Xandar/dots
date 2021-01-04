@@ -18,6 +18,6 @@ set recolor-keephue true
 #set recolor-lightcolor \#2B2A27
 #set recolor-darkcolor   \#f1f1f0
 
-set recolor-darkcolor  \#EDE0CE
+set recolor-darkcolor  \#eff0eb
 set recolor-lightcolor   \#282a36
 set default-bg \#282a36

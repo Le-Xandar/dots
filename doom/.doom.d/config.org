@@ -117,7 +117,7 @@ Use Icons
 ** Scroll
 #+begin_src emacs-lisp
 (setq scroll-conservatively 10)
-(setq scroll-margin 5)
+(setq scroll-margin 3)
 #+end_src
 ** Modes
 Global Mixed Pitch  mode!
@@ -153,6 +153,28 @@ Global Mixed Pitch  mode!
    `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
    `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
    `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+#+end_src
+*** Image preview from urls
+#+begin_src emacs-lisp :tangle yes
+(defun org-image-link (protocol link _description)
+  "Interpret LINK as base64-encoded image data."
+  (cl-assert (string-match "\\`img" protocol) nil
+             "Expected protocol type starting with img")
+  (let ((buf (url-retrieve-synchronously (concat (substring protocol 3) ":" link))))
+    (cl-assert buf nil
+               "Download of image \"%s\" failed." link)
+    (with-current-buffer buf
+      (goto-char (point-min))
+      (re-search-forward "\r?\n\r?\n")
+      (buffer-substring-no-properties (point) (point-max)))))
+
+(org-link-set-parameters
+ "imghttp"
+ :image-data-fun #'org-image-link)
+
+(org-link-set-parameters
+ "imghttps"
+ :image-data-fun #'org-image-link)
 #+end_src
 ** ROAM
 *** Setup
@@ -192,14 +214,14 @@ me is Smurt
 \n#+startup: showall\
 \n#+ROAM_TAGS: dailies\
  \n* Do Today [/][%]\
- \n** On My Mind\
- \n** Motivation\
+ \n- [ ] \
  \n* Evening Checkin\
  \n** Daily Score\
  \n** Today I Learned\
  \n** One Thing Achieved\
  \n* Journal :journal:\
- \n* carried to [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]"))
+ \n* last daily [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]\
+ \n* next daily [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]"))
             `(("j" "journal" entry
                #'org-roam-capture--get-point
                "* %<%H:%M> %?"
@@ -332,7 +354,7 @@ This is the raw example
 #+end_src
 ** Org-Latex
 *** Latex Image Preview options
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 '(org-format-latex-options
   (quote
    (:foreground default :background default :scale 0.5 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
@@ -340,7 +362,7 @@ This is the raw example
 (set-default 'preview-scale-function 0.2)
 #+end_src
 Imagemagick since dvipng can't handle tikz \LaTeX
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (setq org-latex-create-formula-image-program 'imagemagick)
 #+end_src
 *** Update Latex Fragments with font change
@@ -397,9 +419,9 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
 (setq geiser-default-implementation  'guile)
 #+end_src
-** org-linkz
+*** org-linkz
 [[https://github.com/p-kolacz/org-linkz][p-kolacz/org-linkz]]
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (setq org-html-validation-link nil)  ;; removes validation link from exported html file
 (require 'org-protocol)
 (setq org-capture-templates
@@ -411,6 +433,10 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 ))
 (setq org-protocol-default-template-key "o")
 #+end_src
+*** ditaa
+#+begin_src emacs-lisp
+(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar")
+#+end_src
 * Elfeed
 ** Setup
 *** Use Filter:
@@ -421,7 +447,7 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 *** Source of Feeds
 Takes feeds from Org-File
 #+begin_src emacs-lisp
-(setq rmh-elfeed-org-files (list "~/.doom.d/elfeed.org"))
+(setq rmh-elfeed-org-files (list "~/.doom.d/elfeed.org" (concat org-roam-directory "internet/elfeed.org")))
 #+end_src
 
 *** Refresh Feed

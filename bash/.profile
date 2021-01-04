@@ -16,6 +16,9 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+if [ -f ~/.config/sh_vars/variables.sh ]; then  .  $HOME/.config/sh_vars/variables.sh ;fi
+if [ -f ~/.config/sh_vars/aliases.sh ]; then  .  $HOME/.config/sh_vars/aliases.sh ;fi
+
 # if running zsh
     if [ -f "$HOME/.zsh" ]; then
 	. "$HOME/.zsh"

@@ -127,6 +127,8 @@ zle -N zle-line-finish
 zle -N zle-keymap-select
 
 bindkey jk vi-cmd-mode
+bindkey -M vicmd '^V' edit-command-line
+bindkey '^V' edit-command-line
 
 
 alias gentoo='neofetch --kitty Pictures/gentoo-logo.png'
