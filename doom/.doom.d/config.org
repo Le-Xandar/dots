@@ -52,20 +52,21 @@ presentations or streaming.
 
 They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 font string. You generally only need these two:
-*** Font
-#+begin_src emacs-lisp
-(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "sans" :size 11))
-;;(setq doom-font (font-spec :family "Open Sans" :size 12 :weight 'regular)
-;;doom-variable-pitch-font (font-spec :family "sans" :size 12))
-#+end_src
 *** Theme
 There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set src_elisp{`doom-theme'} or manually load a theme
 with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
                                                                           doom-theme 'doom-one)}
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-snazzy)
+#+end_src
+*** Font
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "sans" :size 11))
+(set-fontset-font t 'arabic "Noto Sans Arabic UI")
+;;(setq doom-font (font-spec :family "Open Sans" :size 12 :weight 'regular)
+;;doom-variable-pitch-font (font-spec :family "sans" :size 12))
 #+end_src
 *** Line Numbers
 #+begin_src emacs-lisp
@@ -86,6 +87,11 @@ Use Icons
  :n "<f8>" 'org-agenda
  ;; :n "<f7>" email TODO: Add email
  )
+#+end_src
+*** alt Leader key
+#+begin_src emacs-lisp
+(setq doom-leader-alt-key "C-SPC")
+(setq doom-localleader-alt-key "C-SPC m")
 #+end_src
 *** Function row With Modifiers <F-{1-12}>
 #+begin_src emacs-lisp
@@ -112,7 +118,7 @@ Use Icons
 #+end_src
 ** Fill column
 #+begin_src emacs-lisp
-(setq-default fill-column 80)
+(setq-default fill-column 60)
 #+end_src
 ** Scroll
 #+begin_src emacs-lisp
@@ -126,56 +132,6 @@ Global Mixed Pitch  mode!
 #+end_src
 
 * Org-Mode
-** UI
-*** hide the emphasis markup (e.g. /.../ for italics, *...* for bold, etc.):
-#+begin_src emacs-lisp
-(setq org-hide-emphasis-markers t)
-#+end_src
-*** Fonts
-#+begin_src emacs-lisp :tangle no
-(let* ((variable-tuple
-        (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-              ((x-list-fonts "Verdana")         '(:font "Verdana"))
-              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-       (base-font-color     (face-foreground 'default nil 'default))
-       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
-
-  (custom-theme-set-faces
-   'user
-   `(org-level-8 ((t (,@headline ,@variable-tuple))))
-   `(org-level-7 ((t (,@headline ,@variable-tuple))))
-   `(org-level-6 ((t (,@headline ,@variable-tuple))))
-   `(org-level-5 ((t (,@headline ,@variable-tuple))))
-   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
-   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
-   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
-   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
-   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
-#+end_src
-*** Image preview from urls
-#+begin_src emacs-lisp :tangle yes
-(defun org-image-link (protocol link _description)
-  "Interpret LINK as base64-encoded image data."
-  (cl-assert (string-match "\\`img" protocol) nil
-             "Expected protocol type starting with img")
-  (let ((buf (url-retrieve-synchronously (concat (substring protocol 3) ":" link))))
-    (cl-assert buf nil
-               "Download of image \"%s\" failed." link)
-    (with-current-buffer buf
-      (goto-char (point-min))
-      (re-search-forward "\r?\n\r?\n")
-      (buffer-substring-no-properties (point) (point-max)))))
-
-(org-link-set-parameters
- "imghttp"
- :image-data-fun #'org-image-link)
-
-(org-link-set-parameters
- "imghttps"
- :image-data-fun #'org-image-link)
-#+end_src
 ** ROAM
 *** Setup
 #+begin_src emacs-lisp
@@ -197,7 +153,7 @@ Global Mixed Pitch  mode!
 #+end_src
 *** Set Directory
 #+begin_src emacs-lisp
-(setq org-roam-directory "~/Documents/roam/")
+;; Mobed to Org Directory
 #+end_src
 *** Deft
 #+begin_src emacs-lisp
@@ -248,6 +204,9 @@ If you use `org' and don't want your org files in the default location below,
 change `org-directory'. It must be set before org loads!, end it with a slash "/"
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/gtd/")
+(setq org-college-file-path (concat org-directory "college.org"))
+;; roam
+(setq org-roam-directory "~/Documents/roam/")
 #+end_src
 
 ** Agenda
@@ -352,6 +311,12 @@ This is the raw example
 #+begin_src emacs-lisp :tangle yes
 (add-hook 'org-agenda-mode-hook 'elegant-agenda-mode)
 #+end_src
+*** fixes
+#+begin_src emacs-lisp
+(with-eval-after-load 'org-agenda
+  (define-key org-super-agenda-header-map "j" nil)
+  (define-key org-super-agenda-header-map "k" nil))
+#+end_src
 ** Org-Latex
 *** Latex Image Preview options
 #+begin_src emacs-lisp :tangle no
@@ -414,9 +379,27 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 (dolist (lang org-babel-lang-list)
   (eval `(lsp-org-babel-enable ,lang)))
 #+end_src
+** Capture templates
+#+begin_src emacs-lisp
+(setq org-capture-templates
+      '(("r" "To Read" entry
+         (file+headline +org-capture-todo-file "To Read")
+         "* TODO %?\n%i\n")
+        ("c" "College")
+        ("ch" "Homework" entry
+         (file+headline org-college-file-path "Homework")
+         "* TODO %?\n%i\n:PROPERTIES:\n:Created: %U\n:END:")
+        ("ct" "Exam/Test" entry
+         (file+headline org-college-file-path "Quiz")
+         "* TODO %?\n%i\n:PROPERTIES:\n:Created: %U\n:END:")
+        ("ce" "Event" entry
+         (file+headline org-college-file-path "Event")
+         "* TODO %?\n%i\n:PROPERTIES:\n:Created: %U\n:END:")
+        ))
+#+end_src
 ** Modes
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook #'mixed-pitch-mode)
+;;(add-hook 'org-mode-hook #'mixed-pitch-mode)
 (setq geiser-default-implementation  'guile)
 #+end_src
 *** org-linkz
@@ -436,6 +419,60 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 *** ditaa
 #+begin_src emacs-lisp
 (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar")
+#+end_src
+** UI
+*** hide the emphasis markup (e.g. /.../ for italics, *...* for bold, etc.):
+#+begin_src emacs-lisp
+(setq org-hide-emphasis-markers t)
+#+end_src
+*** Fonts
+#+begin_src emacs-lisp :tangle no
+(let* ((variable-tuple
+        (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+              ((x-list-fonts "Verdana")         '(:font "Verdana"))
+              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+#+end_src
+*** Image preview from urls
+#+begin_src emacs-lisp :tangle yes
+(defun org-image-link (protocol link _description)
+  "Interpret LINK as base64-encoded image data."
+  (cl-assert (string-match "\\`img" protocol) nil
+             "Expected protocol type starting with img")
+  (let ((buf (url-retrieve-synchronously (concat (substring protocol 3) ":" link))))
+    (cl-assert buf nil
+               "Download of image \"%s\" failed." link)
+    (with-current-buffer buf
+      (goto-char (point-min))
+      (re-search-forward "\r?\n\r?\n")
+      (buffer-substring-no-properties (point) (point-max)))))
+
+(org-link-set-parameters
+ "imghttp"
+ :image-data-fun #'org-image-link)
+
+(org-link-set-parameters
+ "imghttps"
+ :image-data-fun #'org-image-link)
+#+end_src
+*** align tags
+#+begin_src emacs-lisp
+(setq org-tags-column 60)
 #+end_src
 * Elfeed
 ** Setup
@@ -524,7 +561,7 @@ Run video in mpv
 #+end_src
 ** Modes
 #+begin_src emacs-lisp
- (add-hook 'elfeed-show-mode-hook #'mixed-pitch-mode)
+ ;;(add-hook 'elfeed-show-mode-hook #'mixed-pitch-mode)
 #+end_src
 * Languages
 ** Rust
@@ -533,23 +570,34 @@ Fix "waiting blocking file"
 (setq lsp-rust-target "/tmp/rust-crap")
 #+end_src
 * IRC
-#+begin_src emacs-lisp
+Include The Irc stuff
+#+INCLUDE: "~/Documents/roam/internet/irc.org"
+
+#+begin_src emacs-lisp :tangle no
 
 (after! circe
-  (set-irc-server! "irc.lainchan.org"
+  (set-irc-server! "example.com"
                    `(:tls t
                      :port 6697
-                     :nick "westofer"
-                     :sasl-username ,(+pass-get-user "irc/lainchan.org")
-                     :sasl-password (lambda (&rest _) (+pass-get-secret "irc/lainchan.org"))
+                     :nick "username"
+                     :sasl-username ,(+pass-get-user "irc/example.com")
+                     :sasl-password (lambda (&rest _) (+pass-get-secret "irc/example.com"))
                      :channels ("#lainchan" "#questions")))
   (set-irc-server! "chat.freenode.net"
                    `(:tls t
                      :port 6697
-                     :nick "westofer"
-                     :sasl-username ,(+pass-get-user "irc/freenode.net")
-                     :sasl-password (lambda (&rest _) (+pass-get-secret "irc/freenode.net"))
-                     :channels ("#emacs"))))
+                     :nick "username"
+                     :sasl-username ,(+pass-get-user "irc/example.net")
+                     :sasl-password (lambda (&rest _) (+pass-get-secret "irc/example.net"))
+                     :channels ("#emacs")))
+#+end_src
+* Telega
+k conflicts with evil up
+#+begin_src emacs-lisp
+(with-eval-after-load 'telega
+  (define-key telega-msg-button-map "k" nil)
+  (define-key telega-msg-button-map "l" nil))
+(setq telega-chat-bidi-display-reordering 'right-to-left)
 #+end_src
 * Fixes
 In case of Emacs28,

@@ -79,6 +79,9 @@ set loadplugins='\.(css|js|penta)$'
 " Open diverted links automatically
 set activate+=diverted
 
+" Toggle dark mode
+map -builtin i :exttoggle Advanced Night Mode<CR>
+
 " Searching                                                    {{{1
 " -----------------------------------------------------------------
 
@@ -99,7 +102,10 @@ map <silent> coh :set hlfind!<CR>
 " Mappings                                                     {{{1
 " leader is space !
 map " " <Leader>
-"
+
+" Space does nothing by itself
+map -builtin " " <nop>
+
 " bring back/hide portions of the GUI
 map -builtin cog :set guioptions!=mBT<CR>
 map -builtin cob :toolbartoggle Bookmarks Toolbar<CR>

@@ -10,7 +10,7 @@ esac
 
 if [ -f ~/.config/sh_vars/variables.sh ]; then  .  $HOME/.config/sh_vars/variables.sh ;fi
 if [ -f ~/.config/sh_vars/aliases.sh ]; then  .  $HOME/.config/sh_vars/aliases.sh ;fi
-
+alias sc="zathura $HOME/schedule.pdf"
 
 # don't put duplicate lines or lines starting with space in the history.
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
