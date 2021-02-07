@@ -105,6 +105,7 @@ set incsearch
 set autoread
 set backspace=indent,eol,start
 set textwidth=80
+set relativenumber
 
 
 

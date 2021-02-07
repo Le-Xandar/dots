@@ -83,7 +83,7 @@ set activate+=diverted
 " -----------------------------------------------------------------
 
 " Use home row letters for hints instead of numbers
-set hintkeys=asdfg;lkjh
+set hintkeys=asdfgr;lkhiu
 
 " find as you type
 set incfind
