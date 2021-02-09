@@ -208,9 +208,7 @@ me is Smurt
  \n** Daily Score\
  \n** Today I Learned\
  \n** One Thing Achieved\
- \n* Journal :journal:\
- \n* last daily [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]\
- \n* next daily [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]"))
+ \n* Journal :journal:"))
         `(("j" "journal" entry
            #'org-roam-capture--get-point
            "* %<%H:%M> %?"
@@ -232,9 +230,11 @@ me is Smurt
            :olp ("Maybe Do Today")
            :immediate-finish t))))
 #+end_src
+*** Templates
+#+INCLUDE: "~/Documents/roam/templates.org"
 *** delve
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
+;(add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
 (setq delve-use-icons-in-completions t)
 (set-evil-initial-state! 'delve-mode 'insert)
 (map! :map delve-mode-map
@@ -256,8 +256,8 @@ change `org-directory'. It must be set before org loads!, end it with a slash "/
 ;; roam
 (setq org-roam-directory "~/Documents/roam/")
 (setq org-roam-intersting-file (concat org-roam-directory "internet/intersting.org"))
+(setq org-roam-goals-file (concat org-roam-directory "goals.org"))
 #+end_src
-
 
 ** Agenda
 *** custom commands [Inactive]
@@ -458,13 +458,22 @@ Imagemagick since dvipng can't handle tikz \LaTeX
           ("i" "Interesting")
           ("iw" "Interesting Website" entry
            (file+headline org-roam-intersting-file "Website")
-           "* %?\n%i\n")
+           "- %?\n%i\n")
+          ("iw" "Interesting Subreddit" entry
+           (file+headline org-roam-intersting-file "Subreddit")
+           "- %?\n%i\n")
+          ("it" "Interesting tweet" entry
+           (file+headline org-roam-intersting-file "Tweet")
+           "- %?\n%i\n")
           ("ii" "Information" entry
            (file+headline org-roam-intersting-file  "Information")
-           "* %?\n%i\n")
-          ("iI" "Idea" entry
-           (file+headline org-roam-intersting-file  "Idea")
-           "* %?\n%i\n")
+           "- %?\n%i\n")
+          ("ip" "Project Idea" entry
+           (file+headline org-roam-goals-file  "Project Ideas")
+           "- %?\n%i\n")
+          ("ib" "Blog Ideas" entry
+           (file+headline org-roam-goals-file  "Blog Ideas")
+           "- %?\n%i\n")
 
           ;; Media
           ("m" "Media")
@@ -476,12 +485,12 @@ Imagemagick since dvipng can't handle tikz \LaTeX
            "* TODO %?\n%i\n")
 
           ("r" "Rice")
-          ("re" "Emacs" entry
-           (file+headline +org-capture-todo-file  "Emacs :linux:emacs:rice:")
-           "* TODO %?\n%i\n")
-          ("rw" "Window Manager" entry
-           (file+headline +org-capture-todo-file  "Window Manager :wm:linux:rice:")
-           "* TODO %?\n%i\n")
+          ("ie" "Emacs Ideas" entry
+           (file+headline org-roam-goals-file  "Emacs Ideas")
+           "- %?\n%i\n")
+          ("ro" "Other Ideas" entry
+           (file+headline org-roam-goals-file  "Window Manager :wm:linux:rice:")
+           "- %?\n%i\n")
 
           )))
 #+end_src

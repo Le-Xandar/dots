@@ -19,6 +19,8 @@ eval "$(starship init zsh)"
 #ZSH_THEME="fino"
 ZSH_THEME="fox"
 #ZSH_THEME="jonathan"
+alias sc="zathura $HOME/schedule.pdf"
+alias mo="mpv /home/westofer/Videos/MY\ SOLDIERS,\ RAGE!\ MY\ SOLDIERS,\ SCREAM!\ MY\ SOLDIERS,\ FIGHT!\ _\ Attack\ On\ Titan\ Season\ 3\ Episode\ 16-zupQUfzxjDs.mp4"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
