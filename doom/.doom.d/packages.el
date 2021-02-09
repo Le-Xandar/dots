@@ -81,6 +81,13 @@
   :recipe (:host github :repo "justinbarclay/elegant-agenda-mode"
             ;; :files ("elegant-agenda-mode.el")
            ))
+;;;  delve for org-roam
+(package! lister                        ;deps for delve
+  :recipe (:host github :repo "publicimageltd/lister"))
+(package! delve
+  :recipe (:host github :repo "publicimageltd/delve"))
+
+
 
 ;;; Agenda
 (package! org-super-agenda)
@@ -94,3 +101,4 @@
 (package! org-yt
   :recipe (:host github :repo  "TobiasZawada/org-yt"
            :files ("org-yt.el" )))
+(package! org-sidebar)

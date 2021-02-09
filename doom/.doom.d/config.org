@@ -2,6 +2,35 @@
 #+TITLE: Config
 #+STARTUP: content
 
+* Table of content :toc:
+- [[#info][Info]]
+- [[#global-settings][Global Settings]]
+  - [[#private-config][Private Config]]
+  - [[#start-as-a-server][Start as a server]]
+  -  [[#ui][UI]]
+  - [[#keybinds][KeyBinds]]
+  - [[#fill-column][Fill column]]
+  - [[#scroll][Scroll]]
+  - [[#modes][Modes]]
+- [[#org-mode][Org-Mode]]
+  - [[#roam][ROAM]]
+  - [[#org-directory][Org Directory]]
+  - [[#agenda][Agenda]]
+  - [[#org-latex][Org-Latex]]
+  - [[#capture-templates][Capture templates]]
+  - [[#modes-1][Modes]]
+  - [[#ui-1][UI]]
+- [[#elfeed][Elfeed]]
+  - [[#setup][Setup]]
+  - [[#key-maps][Key Maps]]
+  - [[#utils][Utils]]
+  - [[#modes-2][Modes]]
+- [[#languages][Languages]]
+  - [[#rust][Rust]]
+- [[#irc][IRC]]
+- [[#telega][Telega]]
+- [[#fixes][Fixes]]
+
 * Info
 #+begin_src emacs-lisp
 ;; DOOMDIR/config.el -*- lexical-binding: t; -*-
@@ -38,7 +67,7 @@ clients, file templates and snippets.
 #+end_src
 ** Start as a server
 #+begin_src emacs-lisp
-(server-start)
+;;(server-start)
 #+end_src
 **  UI
 
@@ -56,7 +85,7 @@ font string. You generally only need these two:
 There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set src_elisp{`doom-theme'} or manually load a theme
 with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
-                                                                          doom-theme 'doom-one)}
+doom-theme 'doom-one)}
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-snazzy)
 #+end_src
@@ -64,7 +93,15 @@ with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'regular)
       doom-variable-pitch-font (font-spec :family "sans" :size 11))
-(set-fontset-font t 'arabic "Noto Sans Arabic UI")
+(after! doom-themes
+  (set-fontset-font t 'arabic "Noto Sans Arabic UI")
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t
+        ))
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic)
+  )
 ;;(setq doom-font (font-spec :family "Open Sans" :size 12 :weight 'regular)
 ;;doom-variable-pitch-font (font-spec :family "sans" :size 12))
 #+end_src
@@ -84,20 +121,15 @@ Use Icons
  ;; :n "<f5>" compile TODO: add compile
  :n "C-<f5>" 'compile-on-save-mode
  :n "<f6>" 'elfeed
- :n "<f8>" 'org-agenda
  ;; :n "<f7>" email TODO: Add email
+ :n "<f8>" (cmd! (org-agenda nil "c"))
+ :n "<f12>" 'delve-open-or-select
  )
 #+end_src
 *** alt Leader key
 #+begin_src emacs-lisp
 (setq doom-leader-alt-key "C-SPC")
 (setq doom-localleader-alt-key "C-SPC m")
-#+end_src
-*** Function row With Modifiers <F-{1-12}>
-#+begin_src emacs-lisp
-(map!
- :n "C-<f5>" 'compile-on-save-mode
- )
 #+end_src
 *** Text Manipulation
 **** C-h as backspace
@@ -129,6 +161,7 @@ Use Icons
 Global Mixed Pitch  mode!
 #+begin_src emacs-lisp
 ;;(add-hook 'text-mode-hook 'mixed-pitch-mode)
+(add-hook 'text-mode-hook 'blink-cursor-mode)
 #+end_src
 
 * Org-Mode
@@ -164,9 +197,9 @@ Global Mixed Pitch  mode!
 *** Dailies Template
 me is Smurt
 #+begin_src emacs-lisp
-    (setq org-roam-dailies-capture-templates
-          (let ((head "\
-#+title: %<%Y-%m-%d (%A)>\
+(setq org-roam-dailies-capture-templates
+      (let ((head "\
+,#+title: %<%Y-%m-%d (%A)>\
 \n#+startup: showall\
 \n#+ROAM_TAGS: dailies\
  \n* Do Today [/][%]\
@@ -178,36 +211,53 @@ me is Smurt
  \n* Journal :journal:\
  \n* last daily [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]\
  \n* next daily [[file:%<%Y-%m-%d>.org][%<%Y-%m-%d>]]"))
-            `(("j" "journal" entry
-               #'org-roam-capture--get-point
-               "* %<%H:%M> %?"
-               :file-name "daily/%<%Y-%m-%d>"
-               :head ,head
-               :olp ("Journal"))
-              ("t" "do today" item
-               #'org-roam-capture--get-point
-               "[ ] %(princ as/agenda-captured-link)"
-               :file-name "daily/%<%Y-%m-%d>"
-               :head ,head
-               :olp ("Do Today")
-               :immediate-finish t)
-              ("m" "maybe do today" item
-               #'org-roam-capture--get-point
-               "[ ] %(princ as/agenda-captured-link)"
-               :file-name "daily/%<%Y-%m-%d>"
-               :head ,head
-               :olp ("Maybe Do Today")
-               :immediate-finish t))))
+        `(("j" "journal" entry
+           #'org-roam-capture--get-point
+           "* %<%H:%M> %?"
+           :file-name "daily/%<%Y-%m-%d>"
+           :head ,head
+           :olp ("Journal"))
+          ("t" "do today" item
+           #'org-roam-capture--get-point
+           "[ ] %(princ as/agenda-captured-link)"
+           :file-name "daily/%<%Y-%m-%d>"
+           :head ,head
+           :olp ("Do Today")
+           :immediate-finish t)
+          ("m" "maybe do today" item
+           #'org-roam-capture--get-point
+           "[ ] %(princ as/agenda-captured-link)"
+           :file-name "daily/%<%Y-%m-%d>"
+           :head ,head
+           :olp ("Maybe Do Today")
+           :immediate-finish t))))
+#+end_src
+*** delve
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
+(setq delve-use-icons-in-completions t)
+(set-evil-initial-state! 'delve-mode 'insert)
+(map! :map delve-mode-map
+      :n "gr"      #'delve-refresh-buffer
+      :n "<right>" #'delve-expand-insert-tolinks
+      :n "<left>"  #'devle-expand-insert-backlinks
+      :n "TAB"  #'delve-expand-toggle-sublist)
+      "RET"  #'lister-key-action
+      :localleader
+      "RET"  #'lister-key-action
+      "TAB"  #'delve-expand-toggle-sublist
 #+end_src
 ** Org Directory
 If you use `org' and don't want your org files in the default location below,
 change `org-directory'. It must be set before org loads!, end it with a slash "/"
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/gtd/")
-(setq org-college-file-path (concat org-directory "college.org"))
+(setq org-college-file(concat org-directory "college.org"))
 ;; roam
 (setq org-roam-directory "~/Documents/roam/")
+(setq org-roam-intersting-file (concat org-roam-directory "internet/intersting.org"))
 #+end_src
+
 
 ** Agenda
 *** custom commands [Inactive]
@@ -289,8 +339,8 @@ This is the raw example
                              :deadline past
                              :order 7)
                             ;;==============================;;
-                            (:name "Other Personal Life"
-                             :tag "life"
+                            (:name "Media to Consoom"
+                             :tag "media"
                              :order 14
                              )
                             (:name "code"
@@ -298,7 +348,7 @@ This is the raw example
                              :order 15
                              )
                             (:name "Linux"
-                             :tag "linux"
+                             :tag "rice"
                              :order 16
                              )
 
@@ -381,21 +431,59 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 #+end_src
 ** Capture templates
 #+begin_src emacs-lisp
-(setq org-capture-templates
-      '(("r" "To Read" entry
-         (file+headline +org-capture-todo-file "To Read")
-         "* TODO %?\n%i\n")
-        ("c" "College")
-        ("ch" "Homework" entry
-         (file+headline org-college-file-path "Homework")
-         "* TODO %?\n%i\n:PROPERTIES:\n:Created: %U\n:END:")
-        ("ct" "Exam/Test" entry
-         (file+headline org-college-file-path "Quiz")
-         "* TODO %?\n%i\n:PROPERTIES:\n:Created: %U\n:END:")
-        ("ce" "Event" entry
-         (file+headline org-college-file-path "Event")
-         "* TODO %?\n%i\n:PROPERTIES:\n:Created: %U\n:END:")
-        ))
+(after! org
+  (setq org-capture-templates
+        '(
+
+          ("t" "General Todo")
+          ("tt" "General" entry
+           (file+headline +org-capture-todo-file  "Inbox")
+           "* TODO %?\n%i")
+          ("tT" "Today" entry
+           (file+headline +org-capture-todo-file  "Inbox")
+           "* TODO %?\n%iSCHEDULED: %T\n")
+
+          ;; College
+          ("c" "College")
+          ("ch" "Homework" entry
+           (file+headline org-college-file  "Homework :college:hw:")
+           "* TODO %?\n%i:PROPERTIES:\n:Created: %U\n:END:")
+          ("ct" "Exam/Test" entry
+           (file+headline org-college-file "Quiz :college:exam:")
+           "* TODO %?\n%i:PROPERTIES:\n:Created: %U\n:END:")
+          ("ce" "Event" entry
+           (file+headline org-college-file "Event :college:event:")
+           "* TODO %?\n%i:PROPERTIES:\n:Created: %U\n:END:")
+
+          ("i" "Interesting")
+          ("iw" "Interesting Website" entry
+           (file+headline org-roam-intersting-file "Website")
+           "* %?\n%i\n")
+          ("ii" "Information" entry
+           (file+headline org-roam-intersting-file  "Information")
+           "* %?\n%i\n")
+          ("iI" "Idea" entry
+           (file+headline org-roam-intersting-file  "Idea")
+           "* %?\n%i\n")
+
+          ;; Media
+          ("m" "Media")
+          ("mr" "To Read" entry
+           (file+headline +org-capture-todo-file  "To Read :media:read:")
+           "* TODO %?\n%i\n")
+          ("mw" "To Watch" entry
+           (file+headline +org-capture-todo-file  "To Watch :media:watch:")
+           "* TODO %?\n%i\n")
+
+          ("r" "Rice")
+          ("re" "Emacs" entry
+           (file+headline +org-capture-todo-file  "Emacs :linux:emacs:rice:")
+           "* TODO %?\n%i\n")
+          ("rw" "Window Manager" entry
+           (file+headline +org-capture-todo-file  "Window Manager :wm:linux:rice:")
+           "* TODO %?\n%i\n")
+
+          )))
 #+end_src
 ** Modes
 #+begin_src emacs-lisp
