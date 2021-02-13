@@ -2,34 +2,70 @@
 #+TITLE: Config
 #+STARTUP: content
 
-* Table of content :toc:
+* Table of content :toc_4:
 - [[#info][Info]]
 - [[#global-settings][Global Settings]]
   - [[#private-config][Private Config]]
   - [[#start-as-a-server][Start as a server]]
   -  [[#ui][UI]]
+    - [[#theme][Theme]]
+    - [[#font][Font]]
+    - [[#line-numbers][Line Numbers]]
+    - [[#neotree][Neotree]]
   - [[#keybinds][KeyBinds]]
+    - [[#function-row-f-1-12][Function row <F-{1-12}>]]
+    - [[#alt-leader-key][alt Leader key]]
+    - [[#text-manipulation][Text Manipulation]]
+      - [[#c-h-as-backspace][C-h as backspace]]
+      - [[#ediff-init-and-example][ediff init and example]]
   - [[#fill-column][Fill column]]
   - [[#scroll][Scroll]]
   - [[#modes][Modes]]
 - [[#org-mode][Org-Mode]]
   - [[#roam][ROAM]]
+    - [[#setup][Setup]]
+    - [[#set-directory][Set Directory]]
+    - [[#deft][Deft]]
+    - [[#dailies-template][Dailies Template]]
+    - [[#templates][Templates]]
+    - [[#delve][delve]]
+    - [[#fixes][fixes]]
   - [[#org-directory][Org Directory]]
   - [[#agenda][Agenda]]
+    - [[#custom-commands-inactive][custom commands [Inactive]]]
+    - [[#org-super-agenda-mode][Org super agenda mode]]
+    - [[#ui-1][UI]]
+    - [[#fixes-1][fixes]]
   - [[#org-latex][Org-Latex]]
+    - [[#latex-image-preview-options][Latex Image Preview options]]
+    - [[#update-latex-fragments-with-font-change][Update Latex Fragments with font change]]
+    - [[#tikz-preview][Tikz Preview]]
+    - [[#nice-to-be-able-to-use-cdlatex][nice to be able to use cdlatex.]]
+    - [[#now-by-default-lsps-dont-really-function-at-all-in-src-blocks][Now, by default, LSPs don’t really function at all in src blocks.]]
   - [[#capture-templates][Capture templates]]
   - [[#modes-1][Modes]]
-  - [[#ui-1][UI]]
+    - [[#org-linkz][org-linkz]]
+    - [[#ditaa][ditaa]]
+  - [[#ui-2][UI]]
+    - [[#hide-the-emphasis-markup-eg--for-italics--for-bold-etc][hide the emphasis markup (e.g. /.../ for italics, *...* for bold, etc.):]]
+    - [[#fonts][Fonts]]
+    - [[#image-preview-from-urls][Image preview from urls]]
+    - [[#align-tags][align tags]]
 - [[#elfeed][Elfeed]]
-  - [[#setup][Setup]]
+  - [[#setup-1][Setup]]
+    - [[#use-filter][Use Filter:]]
+    - [[#source-of-feeds][Source of Feeds]]
+    - [[#refresh-feed][Refresh Feed]]
   - [[#key-maps][Key Maps]]
   - [[#utils][Utils]]
+    - [[#elfeed-close-prev-buffer][elfeed-close-prev-buffer]]
+    - [[#elfeed-view-mpv][elfeed-view-mpv]]
   - [[#modes-2][Modes]]
 - [[#languages][Languages]]
   - [[#rust][Rust]]
 - [[#irc][IRC]]
 - [[#telega][Telega]]
-- [[#fixes][Fixes]]
+- [[#fixes-2][Fixes]]
 
 * Info
 #+begin_src emacs-lisp
@@ -85,7 +121,7 @@ font string. You generally only need these two:
 There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set src_elisp{`doom-theme'} or manually load a theme
 with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
-doom-theme 'doom-one)}
+                                                                          doom-theme 'doom-one)}
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-snazzy)
 #+end_src
@@ -172,11 +208,17 @@ Global Mixed Pitch  mode!
   :after org-roam
   :config
   (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 8078
+        org-roam-server-port 8080
+        org-roam-server-authenticate nil
         org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
         org-roam-server-network-label-truncate t
         org-roam-server-network-label-truncate-length 60
         org-roam-server-network-label-wrap-length 20)
+
   (defun org-roam-server-open ()
     "Ensure the server is active, then open the roam graph."
     (interactive)
@@ -193,15 +235,21 @@ Global Mixed Pitch  mode!
 (setq deft-directory "~/Documents/roam")
 (setq deft-extensions '("md" "tex" "org"))
 (setq deft-recursive t)
+(setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+TITLE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
 #+end_src
 *** Dailies Template
 me is Smurt
 #+begin_src emacs-lisp
 (setq org-roam-dailies-capture-templates
       (let ((head "\
-,#+title: %<%Y-%m-%d (%A)>\
-\n#+startup: showall\
-\n#+ROAM_TAGS: dailies\
+:PROPERTIES:
+:ID:       %<%Y%m%d>daily
+:TITLE: %<%Y-%m-%d (%A)>
+:STARTUP: showall
+:ROAM_TAGS: dailies
+:END:
+\* MetaData
+- type: [[id:8bedd21f][Dailies]]
  \n* Do Today [/][%]\
  \n- [ ] \
  \n* Evening Checkin\
@@ -234,7 +282,7 @@ me is Smurt
 #+INCLUDE: "~/Documents/roam/templates.org"
 *** delve
 #+begin_src emacs-lisp
-;(add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
+                                        ;(add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
 (setq delve-use-icons-in-completions t)
 (set-evil-initial-state! 'delve-mode 'insert)
 (map! :map delve-mode-map
@@ -242,10 +290,31 @@ me is Smurt
       :n "<right>" #'delve-expand-insert-tolinks
       :n "<left>"  #'devle-expand-insert-backlinks
       :n "TAB"  #'delve-expand-toggle-sublist)
-      "RET"  #'lister-key-action
-      :localleader
-      "RET"  #'lister-key-action
-      "TAB"  #'delve-expand-toggle-sublist
+"RET"  #'lister-key-action
+:localleader
+"RET"  #'lister-key-action
+"TAB"  #'delve-expand-toggle-sublist
+#+end_src
+*** fixes
+smartparens breaks file viewer! [[https://github.com/org-roam/org-roam-server/issues/115][org-roam/org-roam-server#115
+                                                                                          Calling "org-roam-server-mode" throws "Wrong typ...]]
+#+begin_src emacs-lisp
+(defun org-roam-server-open ()
+  "Ensure the server is active, then open the roam graph."
+  (interactive)
+  (smartparens-global-mode -1)
+  (org-roam-server-mode 1)
+  (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))
+  (smartparens-global-mode 1))
+;; automatically enable server-mode
+(after! org-roam
+  (smartparens-global-mode -1)
+  (org-roam-server-mode)
+  (smartparens-global-mode 1))
+#+end_src
+for v2,
+#+begin_src emacs-lisp
+(setq org-roam-prefer-id-links t)
 #+end_src
 ** Org Directory
 If you use `org' and don't want your org files in the default location below,
@@ -279,7 +348,7 @@ change `org-directory'. It must be set before org loads!, end it with a slash "/
 *** Org super agenda mode
 [[https://github.com/alphapapa/org-super-agenda][Documentation]]
 This is the raw example
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (use-package! org-super-agenda
   :after org-agenda
   ;;:custom-face
@@ -316,9 +385,13 @@ This is the raw example
                              :order 1
                              )
                             ;; College
+                            (:name "Events"
+                             :tag "event"
+                             :order 2
+                             )
                             (:name "College"
                              :tag "college"
-                             :order 2
+                             :order 3
                              )
                             ;; (:name "Next"
                             ;;  :todo "STRT"
@@ -366,6 +439,10 @@ This is the raw example
 (with-eval-after-load 'org-agenda
   (define-key org-super-agenda-header-map "j" nil)
   (define-key org-super-agenda-header-map "k" nil))
+#+end_src
+save before quiting!
+#+begin_src emacs-lisp
+(advice-add 'org-agenda-quit :before 'org-save-all-org-buffers)
 #+end_src
 ** Org-Latex
 *** Latex Image Preview options
@@ -593,27 +670,31 @@ for loading feeds.
       url-queue-timeout 10)
 #+end_src
 ** Key Maps
-| KeyBinds | Usage         |
-|----------+---------------|
-| v        | Open With mpv |
-| R        | Update Feed   |
-| <f6>     | Close         |
-| b        | browse url    |
-| c        | clear filter  |
-| s        | search live   |
-| S        | set search    |
+| KeyBinds | Usage          |
+|----------+----------------|
+| gv       | Open With mpv  |
+| R        | Update Feed    |
+| r        | Mark As Read   |
+| u        | Mark As Unread |
+| <f6>     | Close          |
+| b        | browse url     |
+| c        | clear filter   |
+| s        | search live    |
+| S        | set search     |
 
 Search examples: `@1-week-ago +videos -linux` (+/- are used to filter tags)
 
 #+begin_src emacs-lisp
-(map!  :map elfeed-search-mode-map
-       :n "v" 'elfeed-view-mpv
-       :n "R" 'elfeed-update
-       :n "G" 'evil-goto-line
-       :n "<f6>" 'elfeed-close-prev-buffer
-       :n "b" 'elfeed-search-browse-url
-       :n "c" 'elfeed-search-clear-filter
-       )
+(after! elfeed (map!  :map elfeed-search-mode-map
+                      :n "gv" 'elfeed-view-mpv
+                      :n "R" 'elfeed-update
+                      :n "r" 'elfeed-search-untag-all-unread
+                      :n "u" 'elfeed-search-tag-all-unread
+                      :n "G" 'evil-goto-line
+                      :n "<f6>" 'elfeed-close-prev-buffer
+                      :n "b" 'elfeed-search-browse-url
+                      :n "c" 'elfeed-search-clear-filter
+                      ))
 #+end_src
 
 ** Utils

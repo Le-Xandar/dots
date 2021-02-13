@@ -1,0 +1,23 @@
+youtube.com##:xpath(//*[text()[contains(., 'Recommended')]]/ancestor::li[contains(concat(' ', @class, ' '), ' video-list-item ')])
+
+! 2021-02-10 https://www.youtube.com 
+! no side recommendations or comments, everything works!!
+www.youtube.com###secondary
+www.youtube.com###sections
+www.youtube.com##.ytd-rich-grid-renderer.style-scope
+
+www.reddit.com##._10wb7d3rGvj56Gcs4IQWL5._1FUNcfOeszr8eruqLxCMcR
+www.reddit.com##._2aNPePbQCJ2-xyqF693-oh
+www.reddit.com##.scrollerItem.hrQ5rXDbyl6t3TIXxENXB._3Qkp11fjcAw9I9wtLo8frE._1EG7_Cm18ANvUvJ4rJdRgQ
+www.reddit.com##a._3dZnYgFFpifT-M_Vs2FAq6:nth-of-type(1)
+www.reddit.com##a._3dZnYgFFpifT-M_Vs2FAq6:nth-of-type(2)
+www.reddit.com##a._3dZnYgFFpifT-M_Vs2FAq6:nth-of-type(3)
+www.reddit.com##._1dJtiWITrnvIbQdXgYgdym.jEUbSHJJx8vISKpWirlfx
+www.reddit.com##.Rz5N3cHNgTGZsIQJqBfgk > span
+www.reddit.com##._2HCuqd3NYACKYaSTmrITE3 > path
+www.reddit.com###focus-Popular
+www.reddit.com###focus-DailyCharts
+www.reddit.com###focus-All
+www.reddit.com##.oiDWziAp_Bua6rb7oQKXs._2MgAHlPDdKvXiG-Qbz5cbC._26MVepkxZHzpNv1cuAA4JA
+www.reddit.com##._2l7c_Oz0UVsamALvPrlznq
+

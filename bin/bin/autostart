@@ -4,7 +4,6 @@
 
 ##emacs -fs &
 ~/bin/monitor-setup
-~/bin/startup/keyboard
 
 # dbus-launch sxhkd &
 
@@ -23,6 +22,8 @@ dbus-launch emacs --daemon &
 #other
 flameshot &
 optimus-manager-qt &
+ibus-daemon &
+~/bin/startup/keyboard
 #uim-toolbar-gtk3-systray & #uim Japanses Input
 
 #if bspwm

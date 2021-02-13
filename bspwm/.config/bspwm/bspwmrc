@@ -25,7 +25,7 @@ bspc config single_monocle        false
 bspc config focus_follows_pointer true
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on 
-bspc rule -a Chromium desktop='^1' 
+#bspc rule -a Chromium desktop='^1' 
 bspc rule -a Brave desktop='^1' 
 bspc rule -a Thunderbird desktop='^6' 
 bspc rule -a Dino desktop='^6' 
