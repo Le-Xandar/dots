@@ -229,8 +229,9 @@ nmap <leader>rn <Plug>(coc-rename)
 "set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 colorscheme snazzy
-let g:lightline = {  'colorscheme': 'snazzy'  }
+"let g:lightline = {  'colorscheme': 'snazzy'  }
 set background=dark
+hi Normal guibg=NONE ctermbg=NONE " trasnperant!
 
 if executable('rg')
     let g:rg_derive_root='true'

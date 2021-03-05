@@ -21,8 +21,8 @@ feh --bg-fill "$(cat ~/bin/config/wallpaper)" &
 dbus-launch emacs --daemon &
 #other
 flameshot &
-optimus-manager-qt &
-ibus-daemon &
+#optimus-manager-qt &
+#ibus-daemon &
 ~/bin/startup/keyboard
 #uim-toolbar-gtk3-systray & #uim Japanses Input
 
@@ -33,4 +33,5 @@ picom --config "$HOME/.config/picom.conf" &
 thunderbird &
 keepassxc &
 #ibus-daemon -drx &
-syncthing --no-browser &
+syncthing-gtk -m
+

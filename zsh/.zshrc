@@ -1,5 +1,8 @@
 if [ -f ~/.config/sh_vars/variables.sh ]; then  .  $HOME/.config/sh_vars/variables.sh ;fi
 if [ -f ~/.config/sh_vars/aliases.sh ]; then  .  $HOME/.config/sh_vars/aliases.sh ;fi
+if [ -f ~/.config/sh_vars/functions.sh ]; then  .  $HOME/.config/sh_vars/functions.sh ;fi
+
+# check update
 
 typeset -U PATH path
 BINPATH="$HOME/bin"
@@ -20,7 +23,8 @@ eval "$(starship init zsh)"
 ZSH_THEME="fox"
 #ZSH_THEME="jonathan"
 alias sc="zathura $HOME/schedule.pdf"
-alias mo="mpv /home/westofer/Videos/MY\ SOLDIERS,\ RAGE!\ MY\ SOLDIERS,\ SCREAM!\ MY\ SOLDIERS,\ FIGHT!\ _\ Attack\ On\ Titan\ Season\ 3\ Episode\ 16-zupQUfzxjDs.mp4"
+alias mo="feh --randomize $HOME/Pictures/motivation"
+alias mov="mpv $HOME/Videos/NO\ EXCUSES\ -\ Best\ Motivational\ Video.mp4"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -33,7 +37,7 @@ alias mo="mpv /home/westofer/Videos/MY\ SOLDIERS,\ RAGE!\ MY\ SOLDIERS,\ SCREAM!
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -62,7 +66,7 @@ COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -81,6 +85,8 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  flatpak
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -90,7 +96,7 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -131,8 +137,6 @@ bindkey -M vicmd '^V' edit-command-line
 bindkey '^V' edit-command-line
 
 
-alias gentoo='neofetch --kitty Pictures/gentoo-logo.png'
-
 # exit on partianl command with Ctrl-D
 exit_zsh() { exit }
 zle -N exit_zsh
@@ -140,3 +144,5 @@ bindkey '^D' exit_zsh
 
 #  z - jump around
 source "$HOME"/bin/progs/z
+#paleofetch | lolcat --random
+if [ -f ~/bin/progs/is-reboot-needed ]; then   $HOME/bin/progs/is-reboot-needed ;fi

@@ -65,6 +65,7 @@
   - [[#rust][Rust]]
 - [[#irc][IRC]]
 - [[#telega][Telega]]
+- [[#company-mode][Company mode]]
 - [[#fixes-2][Fixes]]
 
 * Info
@@ -123,6 +124,8 @@ available. You can either set src_elisp{`doom-theme'} or manually load a theme
 with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
                                                                           doom-theme 'doom-one)}
 #+begin_src emacs-lisp
+                                        ;(setq leuven-scale-org-agenda-structure nil)
+                                        ;(setq leuven-scale-outline-headlines nil)
 (setq doom-theme 'doom-snazzy)
 #+end_src
 *** Font
@@ -208,7 +211,7 @@ Global Mixed Pitch  mode!
   :after org-roam
   :config
   (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 8080
+        org-roam-server-port 8888
         org-roam-server-authenticate nil
         org-roam-server-export-inline-images t
         org-roam-server-serve-files nil
@@ -232,7 +235,7 @@ Global Mixed Pitch  mode!
 #+end_src
 *** Deft
 #+begin_src emacs-lisp
-(setq deft-directory "~/Documents/roam")
+(setq deft-directory "~/Documents/org-roam")
 (setq deft-extensions '("md" "tex" "org"))
 (setq deft-recursive t)
 (setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+TITLE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
@@ -279,7 +282,7 @@ me is Smurt
            :immediate-finish t))))
 #+end_src
 *** Templates
-#+INCLUDE: "~/Documents/roam/templates.org"
+#+INCLUDE: "~/Documents/org-roam/templates.org"
 *** delve
 #+begin_src emacs-lisp
                                         ;(add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
@@ -320,10 +323,10 @@ for v2,
 If you use `org' and don't want your org files in the default location below,
 change `org-directory'. It must be set before org loads!, end it with a slash "/"
 #+begin_src emacs-lisp
-(setq org-directory "~/Documents/gtd/")
+(setq org-directory "~/Documents/Org/")
 (setq org-college-file(concat org-directory "college.org"))
 ;; roam
-(setq org-roam-directory "~/Documents/roam/")
+(setq org-roam-directory "~/Documents/org-roam/")
 (setq org-roam-intersting-file (concat org-roam-directory "internet/intersting.org"))
 (setq org-roam-goals-file (concat org-roam-directory "goals.org"))
 #+end_src
@@ -412,6 +415,10 @@ This is the raw example
                              :deadline past
                              :order 7)
                             ;;==============================;;
+                            (:name "FOSS"
+                             :tag "foss"
+                             :order 9
+                             )
                             (:name "Media to Consoom"
                              :tag "media"
                              :order 14
@@ -525,17 +532,20 @@ Imagemagick since dvipng can't handle tikz \LaTeX
           ("ch" "Homework" entry
            (file+headline org-college-file  "Homework :college:hw:")
            "* TODO %?\n%i:PROPERTIES:\n:Created: %U\n:END:")
-          ("ct" "Exam/Test" entry
+          ("cq" "Quiz/Exam/Test" entry
            (file+headline org-college-file "Quiz :college:exam:")
            "* TODO %?\n%i:PROPERTIES:\n:Created: %U\n:END:")
           ("ce" "Event" entry
            (file+headline org-college-file "Event :college:event:")
            "* TODO %?\n%i:PROPERTIES:\n:Created: %U\n:END:")
+          ("ct" "Todo" entry
+           (file+headline org-college-file "College Todo :college:")
+           "* TODO %?\n%i:PROPERTIES:\n:Created: %U\n:END:")
 
           ("i" "Interesting")
           ("iw" "Interesting Website" entry
            (file+headline org-roam-intersting-file "Website")
-           "- %?\n%i\n")
+           "* %?\n%i\n")
           ("iw" "Interesting Subreddit" entry
            (file+headline org-roam-intersting-file "Subreddit")
            "- %?\n%i\n")
@@ -544,10 +554,10 @@ Imagemagick since dvipng can't handle tikz \LaTeX
            "- %?\n%i\n")
           ("ii" "Information" entry
            (file+headline org-roam-intersting-file  "Information")
-           "- %?\n%i\n")
+           "** PROJ %?\n%i\n")
           ("ip" "Project Idea" entry
            (file+headline org-roam-goals-file  "Project Ideas")
-           "- %?\n%i\n")
+           "** PROJ %?\n%i\n")
           ("ib" "Blog Ideas" entry
            (file+headline org-roam-goals-file  "Blog Ideas")
            "- %?\n%i\n")
@@ -563,11 +573,16 @@ Imagemagick since dvipng can't handle tikz \LaTeX
 
           ("r" "Rice")
           ("ie" "Emacs Ideas" entry
-           (file+headline org-roam-goals-file  "Emacs Ideas")
+           (file+headline +org-capture-todo-file  "Emacs Ideas :emacs:rice:")
            "- %?\n%i\n")
           ("ro" "Other Ideas" entry
-           (file+headline org-roam-goals-file  "Window Manager :wm:linux:rice:")
+           (file+headline +org-capture-todo-file "Window Manager :wm:rice:")
            "- %?\n%i\n")
+
+          ("o" "Free/Open software")
+          ("oa" "AUR" entry
+           (file+headline +org-capture-todo-file "AUR :foss:aur:")
+           "* TODO %? \n%i\n")
 
           )))
 #+end_src
@@ -645,9 +660,11 @@ Imagemagick since dvipng can't handle tikz \LaTeX
  :image-data-fun #'org-image-link)
 #+end_src
 *** align tags
+aligning tags misses up with capture templates
 #+begin_src emacs-lisp
-(setq org-tags-column 60)
+;(after! org (setq org-tags-column 60))
 #+end_src
+
 * Elfeed
 ** Setup
 *** Use Filter:
@@ -749,7 +766,7 @@ Fix "waiting blocking file"
 #+end_src
 * IRC
 Include The Irc stuff
-#+INCLUDE: "~/Documents/roam/internet/irc.org"
+#+INCLUDE: "~/Documents/org-roam/internet/irc.org"
 
 #+begin_src emacs-lisp :tangle no
 
@@ -776,6 +793,10 @@ k conflicts with evil up
   (define-key telega-msg-button-map "k" nil)
   (define-key telega-msg-button-map "l" nil))
 (setq telega-chat-bidi-display-reordering 'right-to-left)
+#+end_src
+* Company mode
+#+begin_src emacs-lisp
+(setq company-idle-delay 0)
 #+end_src
 * Fixes
 In case of Emacs28,

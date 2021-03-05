@@ -102,3 +102,6 @@
   :recipe (:host github :repo  "TobiasZawada/org-yt"
            :files ("org-yt.el" )))
 (package! org-sidebar)
+
+
+(package! matlab-mode)
