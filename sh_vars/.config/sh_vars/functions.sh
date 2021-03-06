@@ -14,3 +14,6 @@ public-ip () { curl eth0.me ; } # or ip.me
 
 # get QR code, helpful for sharing links
 qrcode () { curl "qrenco.de/$*" ; }
+
+# open file with fzf
+fv () { $EDITOR "$( fd --follow --hidden "$@" | fzf --preview="bat --color=always {} || cat {} || ls {}")"  ; }

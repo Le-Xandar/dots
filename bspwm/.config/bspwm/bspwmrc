@@ -6,7 +6,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 #Swallow
 pgrep ~/bin/wm/bspswallow || ~/bin/wm/bspswallow &
 
-~/.config/polybar/launch.sh  &
+~/.config/polybar/forest/launch.sh  &
 
 bspc monitor -d I II III IV V VI VII
 

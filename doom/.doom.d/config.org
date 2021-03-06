@@ -126,7 +126,7 @@ with the src_elisp{`load-theme'} function. This is the default src_elisp{(setq
 #+begin_src emacs-lisp
                                         ;(setq leuven-scale-org-agenda-structure nil)
                                         ;(setq leuven-scale-outline-headlines nil)
-(setq doom-theme 'doom-snazzy)
+(setq doom-theme 'doom-ayu-light)
 #+end_src
 *** Font
 #+begin_src emacs-lisp

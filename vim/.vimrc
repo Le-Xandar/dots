@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'		" UI
 Plug 'ap/vim-buftabline'		" buffers to tabline
 Plug 'connorholyday/vim-snazzy'
+Plug 'ayu-theme/ayu-vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'mhinz/vim-startify'
 
@@ -228,9 +229,11 @@ nmap <leader>rn <Plug>(coc-rename)
 
 "set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-colorscheme snazzy
-"let g:lightline = {  'colorscheme': 'snazzy'  }
-set background=dark
+set termguicolors     " enable true colors support
+let ayucolor="light"  " for light version of theme
+colorscheme ayu
+let g:lightline = {  'colorscheme': 'ayu'  }
+"set background=dark
 hi Normal guibg=NONE ctermbg=NONE " trasnperant!
 
 if executable('rg')
