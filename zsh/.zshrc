@@ -85,8 +85,15 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  emacs
   flatpak
+  fzf
+  fancy-ctrl-z
+  jump
   zsh-autosuggestions
+  zsh-interactive-cd
+  zsh-syntax-highlighting
+  z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -142,7 +149,7 @@ exit_zsh() { exit }
 zle -N exit_zsh
 bindkey '^D' exit_zsh
 
-#  z - jump around
-source "$HOME"/bin/progs/z
 #paleofetch | lolcat --random
 if [ -f ~/bin/progs/is-reboot-needed ]; then   $HOME/bin/progs/is-reboot-needed ;fi
+
+bin/progs/cutefetch $(printf 'kitty\nbunny' | shuf -n 1) $( shuf -i 1-13  -n 1 )

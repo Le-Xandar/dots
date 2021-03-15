@@ -11,8 +11,8 @@
 #feh --bg-fill ~/Pictures/monochrome.jpg
 
 #single monitor wallpaper
-feh --bg-fill "$(cat ~/bin/config/wallpaper)" &
-# feh --randomize --bg-fill Pictures/wallpapers
+#feh --bg-fill "$(cat ~/bin/config/wallpaper)" &
+feh --randomize --bg-fill Pictures/wallpapers
 
 # dual monitor 
 #feh --bg-scale ~/Pictures/wallpapers/morning-wallpaper-cut1.jpg ~/Pictures/wallpapers/morning-wallpaper.-cut2.jpg # dual monitor 
@@ -21,7 +21,7 @@ feh --bg-fill "$(cat ~/bin/config/wallpaper)" &
 dbus-launch emacs --daemon &
 #other
 flameshot &
-#optimus-manager-qt &
+optimus-manager-qt &
 #ibus-daemon &
 ~/bin/startup/keyboard
 #uim-toolbar-gtk3-systray & #uim Japanses Input
@@ -33,5 +33,6 @@ picom --config "$HOME/.config/picom.conf" &
 thunderbird &
 keepassxc &
 #ibus-daemon -drx &
-syncthing-gtk -m
+syncthing-gtk -m &
+qbittorrent &
 

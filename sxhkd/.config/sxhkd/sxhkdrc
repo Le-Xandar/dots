@@ -33,17 +33,13 @@ XF86MonBrightnessDown
 super + Return
 	alacritty
 
-# program launcher
-super + r
- ~/.config/polybar/forest/scripts/launcher.sh ||	dmenu_run
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -usr1 -x sxhkd && notify-send 'sxhkd' 'Reloaded Config'
 
 # Doom Emacs Capture
-super + ctrl + space
-	~/.emacs.d/bin/org-capture
+#super + ctrl + space
+	#~/.emacs.d/bin/org-capture
 
 # emacs
 super + e
@@ -61,11 +57,11 @@ super + shift + b
 
 # scratchpad tdrop
 super + g
-    tdrop -ma -w 75% -x 12% -y  "$PANEL_HEIGHT"  -s dropdown alacritty -o background_opacity=0.6
+    tdrop -ma -w 75% -x 12% -y  "$PANEL_HEIGHT"  -s dropdown alacritty --class wmpin -o background_opacity=0.6
 
 #editor everywhere (vimclip)
-super + shift + g
-    tdrop -ma -w 75% -x 12% -y "$PANEL_HEIGHT"  alacritty  -o background_opacity=0.6 --command ~/bin/wm/editor-everywhere
+#super + shift + g
+    #tdrop -ma -w 75% -x 12% -y "$PANEL_HEIGHT"  alacritty  -o background_opacity=0.6 --command ~/bin/wm/editor-everywhere
 
 #======================== scripts and  other =====
 #Lockscreen
@@ -109,6 +105,22 @@ super + y
 # Window Gap
 super + ctrl + {equal, minus}
   bspc config window_gap $(( $(bspc config window_gap) {+,-} 1 ))
+
+#
+# Launchers
+#
+
+# program launcher
+super + r
+ ~/.config/polybar/forest/scripts/launcher.sh ||	dmenu_run
+
+# program launcher
+super + shift + r
+ 	dmenu_run
+
+# program launcher
+super + bracketleft
+ 	rofimoji
 
 
 #

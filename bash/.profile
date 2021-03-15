@@ -34,4 +34,27 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
-if [ -e /home/westofer/.nix-profile/etc/profile.d/nix.sh ]; then . /home/westofer/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+export XDG_DATA_DIRS="$HOME/.local/xdg:/usr/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+
+#if [ -e /home/westofer/.nix-profile/etc/profile.d/nix.sh ]; then . /home/westofer/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+#if [ -x /usr/bin/spice-vdagent ] ; then
+  #/usr/bin/spice-vdagent
+  ##!/bin/sh
+
+  #sleep 2
+
+  #xrandr --output "$(xrandr | awk '/ connected/{print $1; exit; }')" --auto
+
+  #xev -root -event randr | \
+    #grep --line-buffered 'subtype XRROutputChangeNotifyEvent' | \
+    #while read foo ; do \
+      #xrandr --output "$(xrandr | awk '/ connected/{print $1; exit; }')" --auto
+    #done
+
+
+
+#fi
+
+
+_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true

@@ -2,7 +2,7 @@
 weather () { curl wttr.in/"$*"; }
 
 # get public ip address
-public-ip () { curl eth0.me ; } # or ip.me
+ip.me () { curl eth0.me ; } # or ip.me
 
 # 0x0, upload files and use as pastebin example: 0x0 file.sh
 0x0 () {
@@ -17,3 +17,12 @@ qrcode () { curl "qrenco.de/$*" ; }
 
 # open file with fzf
 fv () { $EDITOR "$( fd --follow --hidden "$@" | fzf --preview="bat --color=always {} || cat {} || ls {}")"  ; }
+
+# takes one arg
+get-video-length () { exiftool -ext mp4 -ext mkv -r -n -q -p '${Duration;$_ = ConvertDuration(our $total += $_)}' "$1" | tail -n 1  ; }
+
+chmodx-last () { chmod +x "$_"  ; }
+
+
+# keep running , screw systemd
+keep () { systemd-run --scope --user "$*"  ; }

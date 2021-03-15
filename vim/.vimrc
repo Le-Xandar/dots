@@ -230,9 +230,8 @@ nmap <leader>rn <Plug>(coc-rename)
 "set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 set termguicolors     " enable true colors support
-let ayucolor="light"  " for light version of theme
-colorscheme ayu
-let g:lightline = {  'colorscheme': 'ayu'  }
+colorscheme snazzy
+let g:lightline = {  'colorscheme': 'snazzy'  }
 "set background=dark
 hi Normal guibg=NONE ctermbg=NONE " trasnperant!
 

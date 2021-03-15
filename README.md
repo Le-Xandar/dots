@@ -21,6 +21,7 @@ stow target=$HOME nvim vim bspwm picom ....
 - you use doom emacs so `.emacs.d/bin/doom build` after cloning doom repo
 - oh-my-zsh requires cloning
 - snazzy is your color scheme
+- `nbfc config -a "Acer Aspire V3-571G"`
 
 ```sh
 # Aur

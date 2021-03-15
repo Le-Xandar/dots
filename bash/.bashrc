@@ -72,7 +72,4 @@ if [ -e /home/westofer/.nix-profile/etc/profile.d/nix.sh ]; then . /home/westofe
 if [ -x /usr/bin/dircolors ]; then test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)" ; fi
 
 if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases ; fi
-eval "$(starship init bash)"
-
-#  z - jump around
-source "$HOME"/bin/progs/z
+#eval "$(starship init bash)"
